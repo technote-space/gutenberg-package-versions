@@ -13,7 +13,7 @@ fi
 
 echo ""
 echo ">> Check diff"
-if [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${TRAVIS_BUILD_DIR}/data)" ]]; then
+if [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${TRAVIS_BUILD_DIR}/data)" ]] && [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${TRAVIS_BUILD_DIR}/${VERSION_FILE})" ]]; then
 	echo "There is no diff"
 	exit
 fi
@@ -26,6 +26,7 @@ if [[ -z "${CI}" ]]; then
 fi
 git -C ${TRAVIS_BUILD_DIR} add ${TRAVIS_BUILD_DIR}/data
 git -C ${TRAVIS_BUILD_DIR} add ${TRAVIS_BUILD_DIR}/${VERSION_FILE}
+git -C ${TRAVIS_BUILD_DIR} status
 git -C ${TRAVIS_BUILD_DIR} commit -m "${COMMIT_MESSAGE}"
 
 echo ""
@@ -34,4 +35,4 @@ bash ${current}/commit/get-new-tag.sh | xargs --no-run-if-empty -I {} git tag -a
 
 echo ""
 echo ">> Push"
-git push origin master --tags
+git -C ${TRAVIS_BUILD_DIR} push origin master --tags

@@ -27,6 +27,7 @@ before_install:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - git config --global user.email "technote.space@gmail.com"
   - git config --global user.name "Technote"
+  - git config --global url."git@github.com:".insteadOf "https://github.com/"
 
 jobs:
   fast_finish: true
