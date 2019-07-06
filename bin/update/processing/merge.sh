@@ -18,6 +18,6 @@ echo ">> Merge version files"
 
 find ${VERSION_DIR}/*.json -maxdepth 1 -type f -print0\
  | xargs --no-run-if-empty -0 -I filename basename filename .json\
- | xargs -I {} jq -s '{"'{}'":.[]}' ${VERSION_DIR}/{}.json\
- | jq -sc .\
+ | xargs -I tag jq -s '{"tag":.[]}' ${VERSION_DIR}/tag.json\
+ | jq -sc add\
  > ${TRAVIS_BUILD_DIR}/${VERSION_FILE}
