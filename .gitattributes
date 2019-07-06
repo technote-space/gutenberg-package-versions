@@ -10,6 +10,7 @@
 *.jpg binary
 *.gif binary
 
+/bin export-ignore
 /tests export-ignore
 /configs export-ignore
 /.github export-ignore
@@ -20,3 +21,4 @@
 /phpunit.xml export-ignore
 /README.md export-ignore
 /_config.yml export-ignore
+/id_rsa.enc export-ignore
