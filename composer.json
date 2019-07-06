@@ -1,0 +1,26 @@
+{
+  "name": "technote/gutenberg-package-versions",
+  "type": "library",
+  "license": "GPL-2.0+",
+  "description": "gutenberg package versions",
+  "homepage": "https://github.com/technote-space/gutenberg-package-versions",
+  "keywords": [
+    "wordpress",
+    "gutenberg"
+  ],
+  "authors": [
+    {
+      "name": "Technote",
+      "email": "technote.space@gmail.com",
+      "homepage": "https://technote.space"
+    }
+  ],
+  "scripts": {
+    "start": [
+      "TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) ./bin/run.sh"
+    ]
+  },
+  "config": {
+    "process-timeout": 1200
+  }
+}
