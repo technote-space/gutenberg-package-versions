@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 current=$(cd $(dirname $0);
 pwd)
@@ -25,11 +25,12 @@ if [[ -z "${CI}" ]]; then
 	exit
 fi
 git -C ${TRAVIS_BUILD_DIR} add ${TRAVIS_BUILD_DIR}/data
+git -C ${TRAVIS_BUILD_DIR} add ${TRAVIS_BUILD_DIR}/${VERSION_FILE}
 git -C ${TRAVIS_BUILD_DIR} commit -m "${COMMIT_MESSAGE}"
 
 echo ""
 echo ">> Create new tag"
-bash ${current}/commit/get-new-tag.sh | xargs --no-run-if-empty -I new_tag git tag new_tag
+bash ${current}/commit/get-new-tag.sh | xargs --no-run-if-empty -I {} git tag -a {} -m "${TAG_MESSAGE}"
 
 echo ""
 echo ">> Push"

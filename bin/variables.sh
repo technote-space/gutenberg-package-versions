@@ -17,6 +17,8 @@ GITHUB_REPO=WordPress/gutenberg
 PLUGIN_SLUG=gutenberg
 if [[ -n "${TRAVIS_BUILD_NUMBER}" ]]; then
 	COMMIT_MESSAGE="feat: Update version data (Travis build: ${TRAVIS_BUILD_WEB_URL})"
+	TAG_MESSAGE="Auto tag by Travis CI (Travis build: ${TRAVIS_BUILD_WEB_URL})"
 else
 	COMMIT_MESSAGE="feat: Update version data"
+	TAG_MESSAGE="Auto tag by Travis CI"
 fi
