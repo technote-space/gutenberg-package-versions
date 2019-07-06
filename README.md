@@ -9,6 +9,10 @@
 
 This repository manages versions of Gutenberg.
 
+```bash
+composer require technote/gutenberg-package-versions
+```
+
 ## Data
 - `versions.json`
   - array of `tag` => `packages`
