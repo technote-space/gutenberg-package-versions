@@ -20,3 +20,5 @@ do
 		bash ${current}/update/get-versions.sh ${tag}
 	fi
 done
+
+bash ${current}/update/merge.sh

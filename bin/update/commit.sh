@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
-
-if [[ -z "${TRAVIS_BUILD_DIR}" ]]; then
-	echo "<TRAVIS_BUILD_DIR> is required"
-	exit 1
-fi
+set -e
 
 current=$(cd $(dirname $0);
 pwd)
@@ -25,6 +20,10 @@ fi
 
 echo ""
 echo ">> Commit"
+if [[ -z "${CI}" ]]; then
+	echo "Prevent commit if local"
+	exit
+fi
 git -C ${TRAVIS_BUILD_DIR} add ${TRAVIS_BUILD_DIR}/data
 git -C ${TRAVIS_BUILD_DIR} commit -m "${COMMIT_MESSAGE}"
 
