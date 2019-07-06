@@ -6,17 +6,60 @@
 
 This repository manages versions of Gutenberg.
 
-## Raw data
-- `package.json` of Gutenberg
-  - data/tags/`<TAG>`/package.json
-- `package.json` of each package
-  - data/tags/`<TAG>`/packages/`<package>`.json
-
-## Processed data
-- merged all package's `package.json`
-  - data/versions/`<TAG>`/packages.json
-- `package => version`
-  - data/versions/`<TAG>`/versions.json
+## Data
+- `versions.json`
+  - array of `tag` => `packages`
+  - `packages`
+    - `wp-<package>` => `version` 
+```
+[
+  {
+    "v3.3.0": {
+      "wp-a11y": "1.1.1",
+      "wp-api-fetch": "1.0.1",
+      "wp-autop": "1.1.1",
+      
+      ...
+      
+      "wp-url": "1.2.1",
+      "wp-viewport": "1.0.1",
+      "wp-wordcount": "1.1.1"
+    }
+  },
+  
+  ...
+  
+  {
+    "v5.9.1": {
+      "wp-a11y": "2.3.0",
+      "wp-annotations": "1.3.0",
+      "wp-api-fetch": "3.2.0",
+      
+      ...
+      
+      "wp-url": "2.6.0",
+      "wp-viewport": "2.4.0",
+      "wp-wordcount": "2.3.0"
+    }
+  },
+  {
+    "v5.9.2": {
+      "wp-a11y": "2.3.0",
+      "wp-annotations": "1.3.0",
+      "wp-api-fetch": "3.2.0",
+      
+      ...
+      
+      "wp-url": "2.6.0",
+      "wp-viewport": "2.4.0",
+      "wp-wordcount": "2.3.0"
+    }
+  }
+]
+```
+- `data/<TAG>.json`
+  - `packages`
+    - `wp-<package>` => `version` 
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  

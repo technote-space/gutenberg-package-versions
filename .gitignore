@@ -2,3 +2,6 @@ Thumbs.db
 /.idea
 /.work
 composer.lock
+id_rsa
+id_rsa.pub
+data.zip

@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "start": [
-      "TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) ./bin/run.sh"
+      "TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) ./bin/update.sh"
     ]
   },
   "config": {

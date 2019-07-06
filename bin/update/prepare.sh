@@ -4,12 +4,7 @@ set -e
 
 current=$(cd $(dirname $0);
 pwd)
-source ${current}/variables.sh
-
-if [[ ! -f ~/.ssh/config ]] || [[ -z $(cat ~/.ssh/config | grep github) ]]; then
-	echo ">> Write to ssh config"
-	echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-fi
+source ${current}/../variables.sh
 
 echo ""
 echo ">> Clone Gutenberg"

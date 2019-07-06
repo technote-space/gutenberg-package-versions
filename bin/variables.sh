@@ -19,3 +19,8 @@ RELEASE_TAG=${TRAVIS_TAG}
 WP_TAG=${TRAVIS_TAG#v}
 GITHUB_REPO=WordPress/gutenberg
 PLUGIN_SLUG=gutenberg
+if [[ -n "${TRAVIS_BUILD_NUMBER}" ]]; then
+	COMMIT_MESSAGE="feat: Update version data (Travis build: ${TRAVIS_BUILD_WEB_URL})"
+else
+	COMMIT_MESSAGE="feat: Update version data"
+fi

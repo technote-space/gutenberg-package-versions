@@ -4,7 +4,7 @@ set -e
 
 current=$(cd $(dirname $0);
 pwd)
-source ${current}/../variables.sh
+source ${current}/../../variables.sh
 
 TAG=${1}
 
