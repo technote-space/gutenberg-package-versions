@@ -18,7 +18,8 @@ branches:
 
 cache:
   directories:
-  - "${TRAVIS_BUILD_DIR}/.work"
+    - "${HOME}/.composer/cache"
+    - "${TRAVIS_BUILD_DIR}/.work"
 
 stages:
   - name: check
