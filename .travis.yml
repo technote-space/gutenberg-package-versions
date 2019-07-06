@@ -6,6 +6,11 @@ dist: trusty
 git:
   depth: 3
 
+notifications:
+  email: false
+  slack:
+    secure: scFqsC1gDFHj9/K31IzUzNv6jrx4ZtpaQ7HCQh81Ho5sYG1EfWKBaWTer5ey6aC277DwtncO2soNnwtiSsoEm0y6x2E+vtpLc/NHQjBVF0QpaMjtvvjnRgyZzDoJbag7eBHnDLHBwXCqANcSSJCBtKT4I6X8pyfrcYTsx5yIJK6nVwTXH64x04SxdhtP3UU4atw3JlkCVpdh8mqfH1cM5ryBgigKFkbDg8zKR7z2jV9rI/mIRjjQKB8ZLY3Wm7s4X2JmuyGBnqKvKHmjJVqX0ecUf2um4I/E8z/u14oYLvgjZ/sZF/ILHY+cO4ct8JxykFya25xsT3TzxeMZ8cmaMBYzn5paz/4DYseOQs8wXp6FSFgK1v3xH2aHJlSQXGGsLwRByPARmT6H7uFUbW9kcaeV9KJmJfqSgmFfp2FyVFRGWspOHLbkNe0sNx/nYoGKQr+iFqsDrQOh8zl+l95N7fkvnU8uTtc9NOR9N1MTmQ7y/kBiXHNM+ZCtNTw8qxjc49KVxBjSuH+fkkLrobipZnEmNhQ4QSlhagfqeuHoK+14zM/Fi00d/JI3yDYd9ub+V+lD1VRCi1/s60LORVvEwFir2GzOSNRJonXdZC195+r40Fdb4QG2wLZkJbWNbdBS+YjaeXDbaV+IK2cSHmUdAA+hxoANu6EDzd1/x9QcxcI=
+
 branches:
   only:
   - master
