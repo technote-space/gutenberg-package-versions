@@ -16,10 +16,14 @@ cache:
   - "${TRAVIS_BUILD_DIR}/.work"
 
 stages:
-- name: update
-  if: branch = master and tag IS blank and type IN (api, cron)
-- name: deploy
-  if: tag IS present
+  - name: check
+    if: branch = master and tag IS blank and type IN (pull_request, api)
+  - name: test
+    if: branch = master and tag IS blank and type IN (pull_request, api)
+  - name: update
+    if: branch = master and tag IS blank and type IN (api, cron)
+  - name: deploy
+    if: tag IS present
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_fea3c3191547_key -iv $encrypted_fea3c3191547_iv -in ./id_rsa.enc -out ~/.ssh/id_rsa -d 2>/dev/null
@@ -28,34 +32,103 @@ before_install:
   - git config --global user.email "technote.space@gmail.com"
   - git config --global user.name "Technote"
   - git config --global url."git@github.com:".insteadOf "https://github.com/"
+  - git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
+  - bash travis-ci/bin/prepare.sh install
 
 jobs:
   fast_finish: true
   include:
-  - stage: update
-    language: node_js
-    node_js: '11'
-    script: bash bin/update.sh
+    - stage: check
+      language: php
+      php: '7.2'
+      script: bash travis-ci/bin/php/phpcs.sh
+    - stage: check
+      language: php
+      php: '7.2'
+      script: bash travis-ci/bin/php/phpmd.sh
 
-  - stage: deploy
-    language: node_js
-    node_js: '11'
-    dist: trusty
-    script: skip
-    before_deploy:
-      - source bin/deploy/env.sh
-      - bash bin/deploy.sh
-    deploy:
-      provider: releases
-      skip_cleanup: true
-      name: ${RELEASE_TITLE}
-      tag_name: ${RELEASE_TAG}
-      api_key:
-        secure: ij6EEfS2oV3dnH8ylMaV3AWUnwqQRFAYL6HeC5+EGYjh/EoB6+cTOVfjX5qrTpRzIz1PdsKQaws5DET26uRDVQIGiySL1RaTZ9zoiCe1uwllZ3gXtHaiiEL5oZSz4bjpww1kqbXANGUOlz9Mnkk+9c0ogtpiBSfIVhMshGN2OKwNDPdgwE27aW3d1ccUHpgs52b5lD01B53hZUxtoiyEcoIBGYSL5xLOVNh626j0ViNhlkjQEAS7STV5LSRVDwXEYZB6nsR8nag59BSOf5y33TYCiGFdlkV3H+3xki/Lgrw+ZY0urCcM9s2J7lkxMqnkXKV64sWUmORsY+6ZyskAbO4RFMFQgtxWPuJyy8kSGIpW2yJxztHMNvPbPzG9x+8IAh1yWuX9dgV2Y8CVq4hi36M8Qk5+CWX3xooYIXU/NiKX8niMSWmmzj2cWlq3KO3UGy8/dsTBzOwLliHR2CkPMDvbDJC/s+BeBQ3dOpT3cEMCkV7ceS0AuXL4LXtreB99VYmOguOtlK5XzmDr6EwCMg99hr5okBQljN+hJIxJj2axRCn8rGm2Y5Do2/ogcQ46gmpKVRb21xXuSHloYYgPIdHZUbebtdRSXyHGqohV7jpsuJ3odNUdXigujnOI2NMdlw9aLN773h+ROgxw6mterz8NDs03KlTvcPeVcxjOCe8=
-      file:
-        - ${RELEASE_FILE1}
-        - ${RELEASE_FILE2}
-      body: ${RELEASE_BODY}
-      overwrite: true
-      on:
-        tags: true
+    - stage: test
+      language: php
+      php: '7.3'
+      env:
+        - WP_VERSION=latest
+        - ACTIVATE_POPULAR_PLUGINS=1
+        - ACTIVATE_GUTENBERG=1
+        - COVERAGE_REPORT=1
+      script: bash travis-ci/bin/php/wp-test.sh
+    - stage: test
+      language: php
+      php: '7.3'
+      env:
+        - WP_VERSION=latest
+        - WP_MULTISITE=1
+        - COVERAGE_REPORT=1
+      script: bash travis-ci/bin/php/wp-test.sh
+    - stage: test
+      language: php
+      php: '7.0'
+      env: WP_VERSION=5.0
+      script: bash travis-ci/bin/php/wp-test.sh
+    - stage: test
+      language: php
+      php: '5.6'
+      env:
+        - WP_VERSION=5.0
+        - WP_MULTISITE=1
+        - ACTIVATE_GUTENBERG=1
+        - COVERAGE_REPORT=1
+      script: bash travis-ci/bin/php/wp-test.sh
+    - stage: test
+      language: php
+      php: '5.6'
+      env: WP_VERSION=4.9
+      script: bash travis-ci/bin/php/wp-test.sh
+    - stage: test
+      language: php
+      php: '5.6'
+      env: WP_VERSION=3.9
+      script: bash travis-ci/bin/php/wp-test.sh
+    - stage: test
+      language: php
+      php: '7.3'
+      env: WP_VERSION=trunk
+      script: bash travis-ci/bin/php/wp-test.sh
+    - stage: test
+      language: php
+      php: '5.6'
+      env: WP_VERSION=trunk
+      script: bash travis-ci/bin/php/wp-test.sh
+
+
+    - stage: update
+      language: node_js
+      node_js: '11'
+      script: bash bin/update.sh
+
+    - stage: deploy
+      language: node_js
+      node_js: '11'
+      dist: trusty
+      script: skip
+      before_deploy:
+        - source bin/deploy/env.sh
+        - bash bin/deploy.sh
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        name: ${RELEASE_TITLE}
+        tag_name: ${RELEASE_TAG}
+        api_key:
+          secure: ij6EEfS2oV3dnH8ylMaV3AWUnwqQRFAYL6HeC5+EGYjh/EoB6+cTOVfjX5qrTpRzIz1PdsKQaws5DET26uRDVQIGiySL1RaTZ9zoiCe1uwllZ3gXtHaiiEL5oZSz4bjpww1kqbXANGUOlz9Mnkk+9c0ogtpiBSfIVhMshGN2OKwNDPdgwE27aW3d1ccUHpgs52b5lD01B53hZUxtoiyEcoIBGYSL5xLOVNh626j0ViNhlkjQEAS7STV5LSRVDwXEYZB6nsR8nag59BSOf5y33TYCiGFdlkV3H+3xki/Lgrw+ZY0urCcM9s2J7lkxMqnkXKV64sWUmORsY+6ZyskAbO4RFMFQgtxWPuJyy8kSGIpW2yJxztHMNvPbPzG9x+8IAh1yWuX9dgV2Y8CVq4hi36M8Qk5+CWX3xooYIXU/NiKX8niMSWmmzj2cWlq3KO3UGy8/dsTBzOwLliHR2CkPMDvbDJC/s+BeBQ3dOpT3cEMCkV7ceS0AuXL4LXtreB99VYmOguOtlK5XzmDr6EwCMg99hr5okBQljN+hJIxJj2axRCn8rGm2Y5Do2/ogcQ46gmpKVRb21xXuSHloYYgPIdHZUbebtdRSXyHGqohV7jpsuJ3odNUdXigujnOI2NMdlw9aLN773h+ROgxw6mterz8NDs03KlTvcPeVcxjOCe8=
+        file:
+          - ${RELEASE_FILE1}
+          - ${RELEASE_FILE2}
+        body: ${RELEASE_BODY}
+        overwrite: true
+        on:
+          tags: true
+
+  allow_failures:
+    - env: WP_VERSION=4.9
+    - env: WP_VERSION=3.9
+    - env: WP_VERSION=trunk
