@@ -14,11 +14,11 @@ fi
 echo ""
 echo ">> Update versions"
 mkdir -p ${VERSION_DIR}
-find ${TAG_DIR} -maxdepth 1 -type d | xargs -n1 --no-run-if-empty basename | grep -v "tags" | while read tag;
+find ${TAG_DIR} -maxdepth 1 -type d -print0 | xargs -n1 --no-run-if-empty -0 basename | grep -v "tags" | while read -r tag;
 do
 	if [[ -f ${TAG_DIR}/${tag}/package.json ]] && [[ -d ${TAG_DIR}/${tag}/packages ]]; then
-		bash ${current}/update/get-versions.sh ${tag}
+		bash ${current}/processing/get-versions.sh ${tag}
 	fi
 done
 
-bash ${current}/update/merge.sh
+bash ${current}/processing/merge.sh

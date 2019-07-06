@@ -16,8 +16,10 @@ fi
 echo ""
 echo ">> Merge version files"
 
-find ${VERSION_DIR}/*.json -maxdepth 1 -type f\
- | xargs --no-run-if-empty -I filename basename filename .json\
- | xargs -I tag jq -s '{"'tag'":.[]}' ${VERSION_DIR}/tag.json\
+PREFIX='{"'
+SUFFIX='":.[]}'
+find ${VERSION_DIR}/*.json -maxdepth 1 -type f -print0\
+ | xargs --no-run-if-empty -0 -I filename basename filename .json\
+ | xargs -I tag jq -s ${PREFIX}tag${SUFFIX} ${VERSION_DIR}/tag.json\
  | jq -sc .\
  > ${TRAVIS_BUILD_DIR}/${VERSION_FILE}

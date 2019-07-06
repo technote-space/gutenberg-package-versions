@@ -8,7 +8,7 @@ source ${current}/../variables.sh
 
 echo ""
 echo ">> Get Packages"
-bash ${current}/get/get-tags.sh | while read tag;
+bash ${current}/get/get-tags.sh | while read -r tag;
 do
 	bash ${current}/get/get-packages.sh ${tag}
 done

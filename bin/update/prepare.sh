@@ -9,7 +9,6 @@ source ${current}/../variables.sh
 echo ""
 echo ">> Clone Gutenberg"
 if [[ ! -d ${WORK_DIR}/${PLUGIN_SLUG}/.git ]]; then
-	rm -rdf ${WORK_DIR}/${PLUGIN_SLUG}
 	mkdir -p ${WORK_DIR}
 	git clone --depth=1 https://github.com/${GITHUB_REPO}.git ${WORK_DIR}/${PLUGIN_SLUG}
 fi

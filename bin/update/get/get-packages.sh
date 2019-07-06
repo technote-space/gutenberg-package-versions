@@ -21,7 +21,7 @@ if [[ ! -f ${TAG_DIR}/${TAG}/package.json ]]; then
 	bash ${current}/get-package.sh ${TAG} > ${TAG_DIR}/${TAG}/package.json
 fi
 
-cat ${TAG_DIR}/${TAG}/package.json | jq -r '.dependencies|values[]' | grep "^file:packages/" | xargs -n1 --no-run-if-empty basename | while read package;
+< ${TAG_DIR}/${TAG}/package.json jq -r '.dependencies|values[]' | grep "^file:packages/" | xargs -n1 --no-run-if-empty basename | while read -r package;
 do
 	if [[ ! -f ${TAG_DIR}/${TAG}/packages/${package}.json ]]; then
 		echo ">>>> ${TAG}/${package}"
