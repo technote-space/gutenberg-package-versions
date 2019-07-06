@@ -13,6 +13,7 @@ fi
 
 echo ""
 echo ">> Check diff"
+git -C ${TRAVIS_BUILD_DIR} checkout master
 if [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${TRAVIS_BUILD_DIR}/data)" ]] && [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${TRAVIS_BUILD_DIR}/${VERSION_FILE})" ]]; then
 	echo "There is no diff"
 	exit
