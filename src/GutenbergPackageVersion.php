@@ -26,7 +26,7 @@ class GutenbergPackageVersion {
 	private static $cache;
 
 	/** @var WP_Filesystem_Direct $fs_cache */
-	private $fs_cache;
+	private static $fs_cache;
 
 	/**
 	 * @param string|null $tag
@@ -81,7 +81,7 @@ class GutenbergPackageVersion {
 	 * @return WP_Filesystem_Direct
 	 */
 	private function get_fs() {
-		if ( ! $this->fs_cache ) {
+		if ( ! static::$fs_cache ) {
 			// @codeCoverageIgnoreStart
 			if ( ! class_exists( '\WP_Filesystem_Base' ) ) {
 				/** @noinspection PhpIncludeInspection */
@@ -101,9 +101,9 @@ class GutenbergPackageVersion {
 			}
 			// @codeCoverageIgnoreEnd
 
-			$this->fs_cache = new WP_Filesystem_Direct( false );
+			static::$fs_cache = new WP_Filesystem_Direct( false );
 		}
 
-		return $this->fs_cache;
+		return static::$fs_cache;
 	}
 }
