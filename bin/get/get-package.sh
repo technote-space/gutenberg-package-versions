@@ -22,4 +22,4 @@ else
 	FILE=packages/${PACKAGE}/package.json
 fi
 
-git -C ${WORK_DIR}/${PLUGIN_SLUG} show ${COMMIT}:${FILE}
+git -C ${WORK_DIR}/${PLUGIN_SLUG} show ${COMMIT}:${FILE} | jq -c .

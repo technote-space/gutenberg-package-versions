@@ -18,15 +18,14 @@ if [[ ! -f ${TAG_DIR}/${TAG}/package.json ]] || [[ ! -d ${TAG_DIR}/${TAG}/packag
 	exit 1
 fi
 
-if [[ -f ${VERSION_DIR}/${TAG}/versions.json ]] && [[ -f ${VERSION_DIR}/${TAG}/packages.json ]]; then
+if [[ -f ${VERSION_DIR}/${TAG}.json ]]; then
 	exit
 fi
 
 echo ""
 echo ">> ${TAG}"
-mkdir -p ${VERSION_DIR}/${TAG}
-rm -f ${VERSION_DIR}/${TAG}/versions.json
-rm -f ${VERSION_DIR}/${TAG}/packages.json
 
-jq -s . $(find ${TAG_DIR}/${TAG}/packages/*.json -maxdepth 1 -type f) > ${VERSION_DIR}/${TAG}/packages.json
-cat ${VERSION_DIR}/${TAG}/packages.json | jq -r '[ .[] | {key:.name, value:.version} ] | from_entries' | sed 's/@wordpress\//wp-/' > ${VERSION_DIR}/${TAG}/versions.json
+jq -sc . $(find ${TAG_DIR}/${TAG}/packages/*.json -maxdepth 1 -type f)\
+ | jq -rc '[ .[] | {key:.name, value:.version} ] | from_entries'\
+ | sed 's/@wordpress\//wp-/g'\
+ > ${VERSION_DIR}/${TAG}.json
