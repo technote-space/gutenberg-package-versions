@@ -23,7 +23,7 @@ WP_REPO=WordPress/wordpress-develop
 WP_IS_WP="TRUE"
 
 GH_PAGES_DIR=${TRAVIS_BUILD_DIR}/gh-pages
-GH_PAGES_CNAME=wp-framework.dev
+GH_PAGES_CNAME=api.wp-framework.dev
 GH_PAGES_API_ROOT=api
 GH_PAGES_API_VERSION=v1
 
