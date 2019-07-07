@@ -24,6 +24,13 @@ rsync -a --checksum --delete ${DATA_DIR}/ ${GH_PAGES_DIR}/${GH_PAGES_API_ROOT}/$
 cp ${TRAVIS_BUILD_DIR}/README.md ${GH_PAGES_DIR}/
 echo ${GH_PAGES_CNAME} > ${GH_PAGES_DIR}/CNAME
 
+echo ""
+echo ">> Check diff"
+if [[ -z "$(git -C ${GH_PAGES_DIR} status --short)" ]]; then
+	echo "There is no diff"
+	exit
+fi
+
 if [[ -z "${CI}" ]]; then
 	echo "Prevent commit if local"
 	exit
