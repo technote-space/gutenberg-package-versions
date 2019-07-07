@@ -2,13 +2,23 @@
 
 set -e
 
-current=$(cd $(dirname $0);
-pwd)
-source ${current}/../../variables.sh
-
-if [[ ! -d ${WORK_DIR}/${PLUGIN_SLUG}/.git ]]; then
-	echo "Not prepared"
+if [[ $# -lt 1 ]]; then
+	echo "usage: $0 <VARIABLE_PREFIX>"
 	exit 1
 fi
 
-git -C ${WORK_DIR}/${PLUGIN_SLUG} tag | grep "^v[0-9]\+\.[0-9]\+\.[0-9]\+"
+current=$(cd $(dirname $0);
+pwd)
+source ${current}/../../variables.sh ${1}
+
+if [[ ! -d ${TARGET_DIR}/.git ]]; then
+	echo "There is not repository: ${TARGET_DIR}"
+	exit 1
+fi
+
+if [[ ! -d ${TARGET_DIR}/.git ]]; then
+	echo "Not prepared: ${TARGET_DIR}"
+	exit 1
+fi
+
+git -C ${TARGET_DIR} tag | grep "^v\?[0-9]\+\.[0-9]\+\.[0-9]\+"

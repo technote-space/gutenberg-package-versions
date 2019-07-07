@@ -5,7 +5,7 @@ id_rsa
 id_rsa.pub
 data.zip
 
-!tests/bin/**/*.sh
+!tests/bin/*.sh
 /coverage
 /vendor
 /travis-ci

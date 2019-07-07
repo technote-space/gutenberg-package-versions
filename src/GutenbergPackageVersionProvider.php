@@ -23,10 +23,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 class GutenbergPackageVersionProvider {
 
 	/** @var array $cache */
-	private static $cache;
+	protected static $cache;
 
 	/** @var WP_Filesystem_Direct $fs_cache */
-	private static $fs_cache;
+	protected static $fs_cache;
+
+	/** @var string $path */
+	protected static $path;
+
+	/** @var string $target */
+	protected $target;
+
+	/**
+	 * GutenbergPackageVersionProvider constructor.
+	 *
+	 * @param string $target
+	 */
+	public function __construct( $target = 'gutenberg' ) {
+		$target = strtolower( $target );
+		if ( 'gutenberg' !== $target ) {
+			$target = 'wp';
+		}
+		$this->target = $target;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_data_path() {
+		if ( ! isset( static::$path ) ) {
+			static::$path = dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
+		}
+
+		return static::$path;
+	}
 
 	/**
 	 * @param string|null $tag
@@ -34,16 +64,16 @@ class GutenbergPackageVersionProvider {
 	 * @return array|null
 	 */
 	public function get_packages( $tag = null ) {
-		if ( ! isset( static::$cache ) ) {
-			static::$cache = json_decode( $this->get_fs()->get_contents( dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'versions.json' ), true );
+		if ( ! isset( static::$cache[ $this->target ] ) ) {
+			static::$cache[ $this->target ] = json_decode( $this->get_fs()->get_contents( static::get_data_path() . $this->target . '-versions.json' ), true );
 		}
 
 		if ( ! isset( $tag ) ) {
-			return static::$cache;
+			return static::$cache[ $this->target ];
 		}
 
-		if ( isset( static::$cache[ $tag ] ) ) {
-			return static::$cache[ $tag ];
+		if ( isset( static::$cache[ $this->target ][ $tag ] ) ) {
+			return static::$cache[ $this->target ][ $tag ];
 		}
 
 		return null;
@@ -58,7 +88,7 @@ class GutenbergPackageVersionProvider {
 	public function get_package_version( $tag, $package ) {
 		$packages = $this->get_packages( $tag );
 
-		if ( is_array( $packages ) && isset( $packages[ $package ] ) ) {
+		if ( isset( $packages[ $package ] ) ) {
 			return $packages[ $package ];
 		}
 
@@ -74,13 +104,13 @@ class GutenbergPackageVersionProvider {
 	public function package_exists( $tag, $package ) {
 		$packages = $this->get_packages( $tag );
 
-		return is_array( $packages ) && isset( $packages[ $package ] );
+		return isset( $packages[ $package ] );
 	}
 
 	/**
 	 * @return WP_Filesystem_Direct
 	 */
-	private function get_fs() {
+	protected function get_fs() {
 		if ( ! static::$fs_cache ) {
 			// @codeCoverageIgnoreStart
 			if ( ! class_exists( '\WP_Filesystem_Base' ) ) {

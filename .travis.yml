@@ -129,6 +129,7 @@ jobs:
         file:
           - ${RELEASE_FILE1}
           - ${RELEASE_FILE2}
+          - ${RELEASE_FILE3}
         body: ${RELEASE_BODY}
         overwrite: true
         on:
