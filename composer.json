@@ -76,8 +76,11 @@
     "bin:update": [
       "TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) ./bin/update.sh"
     ],
-    "bin:deploy": [
-      "TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) source ./bin/deploy/env.sh && TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) ./bin/deploy.sh"
+    "bin:gh-release": [
+      "rm -f ./data.zip && TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) source ./bin/deploy/env.sh && TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) ./bin/deploy/create-zip.sh"
+    ],
+    "bin:gh-pages": [
+      "rm -rdf ./gh-pages && TRAVIS_BUILD_DIR=$(cd $(dirname $0); pwd) ./bin/deploy/gh-pages.sh"
     ]
   },
   "config": {

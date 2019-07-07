@@ -9,7 +9,7 @@ source ${current}/../variables.sh
 pushd ${DATA_DIR}
 echo ""
 echo ">> Create zip file."
-zip -9 -qr ${TRAVIS_BUILD_DIR}/${RELEASE_FILE1} .
+zip -9 -qr ${TRAVIS_BUILD_DIR}/${RELEASE_FILE} .
 pushd
 
-ls -la ${RELEASE_FILE1}
+ls -la ${RELEASE_FILE}
