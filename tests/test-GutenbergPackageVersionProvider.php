@@ -56,6 +56,11 @@ class GutenbergHelper extends WP_UnitTestCase {
 		$this->assertEquals( '1.1.1', $this->get_instance()->get_package_version( '3.3.0', 'wp-a11y' ) );
 		$this->assertNotFalse( $this->get_instance()->get_package_version( '5.9.2', 'wp-block-editor' ) );
 		$this->assertEquals( '2.3.0', $this->get_instance()->get_package_version( '5.9.2', 'wp-a11y' ) );
+
+		$this->assertFalse( $this->get_instance()->get_package_version( '5.1.0', 'wp-block-editor' ) );
+		$this->assertEquals( '1.0.0-alpha.0', $this->get_instance()->get_package_version( '5.2.0', 'wp-block-editor' ) );
+		$this->assertFalse( $this->get_instance( 'wp' )->get_package_version( '5.1.0', 'wp-block-editor' ) );
+		$this->assertEquals( '2.0.1', $this->get_instance( 'wp' )->get_package_version( '5.2.0', 'wp-block-editor' ) );
 	}
 
 	public function test_package_exists() {

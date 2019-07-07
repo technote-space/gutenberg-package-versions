@@ -119,6 +119,7 @@ composer require technote/gutenberg-package-versions
 
 use Technote\GutenbergPackageVersionProvider;
 
+// for Gutenberg
 $provider = new GutenbergPackageVersionProvider();
 
 $provider->get_packages(); // array of (tag => packages)
@@ -126,6 +127,18 @@ $provider->get_packages( '5.2.0' ); // array of (package => version)
 
 $provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
 $provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 1.0.0-alpha.0
+
+$provider->package_exists( '5.1.0', 'wp-block-editor' ); // false
+$provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
+
+// for WP Core
+$provider = new GutenbergPackageVersionProvider( 'wp' );
+
+$provider->get_packages(); // array of (tag => packages)
+$provider->get_packages( '5.2.0' ); // array of (package => version)
+
+$provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
+$provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 2.0.1
 
 $provider->package_exists( '5.1.0', 'wp-block-editor' ); // false
 $provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
