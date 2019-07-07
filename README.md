@@ -9,15 +9,13 @@
 
 This repository manages versions of Gutenberg.
 
-```bash
-composer require technote/gutenberg-package-versions
-```
-
 ## Data
 - `versions.json`
-  - array of `tag` => `packages`
+  - array of (`tag` => `packages`)
   - `packages`
-    - `wp-<package>` => `version` 
+    - array of (`wp-<package>` => `version`)
+
+e.g.
 ```
 {
   "v3.3.0": {
@@ -57,26 +55,38 @@ composer require technote/gutenberg-package-versions
     "wp-viewport": "2.4.0",
     "wp-wordcount": "2.3.0"
   }
+  
+  ...
+  
 }
 ```
 - `data/<TAG>.json`
   - `packages`
     - `wp-<package>` => `version` 
 
-## Helper
+## Usage
+### Use from json file
+[Download from latest release](https://github.com/technote-space/gutenberg-package-versions/releases/latest/download/versions.json)
+### Use from composer
+```bash
+composer require technote/gutenberg-package-versions
+```
+#### Helper
 ```php
 <?php
 
-use Technote\GutenbergPackageVersion;
+use Technote\GutenbergPackageVersionProvider;
 
-( new GutenbergPackageVersion() )->get_packages(); // array of (tag => packages)
-( new GutenbergPackageVersion() )->get_packages( 'v5.2.0' ); // array of (package => version)
+$provider = new GutenbergPackageVersionProvider();
 
-( new GutenbergPackageVersion() )->get_package_version( 'v5.1.0', 'wp-block-editor' ); // false
-( new GutenbergPackageVersion() )->get_package_version( 'v5.2.0', 'wp-block-editor' ); // 1.0.0-alpha.0
+$provider->get_packages(); // array of (tag => packages)
+$provider->get_packages( 'v5.2.0' ); // array of (package => version)
 
-( new GutenbergPackageVersion() )->package_exists( 'v5.1.0', 'wp-block-editor' ); // false
-( new GutenbergPackageVersion() )->package_exists( 'v5.2.0', 'wp-block-editor' ); // true
+$provider->get_package_version( 'v5.1.0', 'wp-block-editor' ); // false
+$provider->get_package_version( 'v5.2.0', 'wp-block-editor' ); // 1.0.0-alpha.0
+
+$provider->package_exists( 'v5.1.0', 'wp-block-editor' ); // false
+$provider->package_exists( 'v5.2.0', 'wp-block-editor' ); // true
 ```
 
 ## Author
