@@ -17,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 // @codeCoverageIgnoreEnd
 
 /**
- * Class GutenbergPackageVersion
+ * Class GutenbergPackageVersionProvider
  * @package Technote
  */
-class GutenbergPackageVersion {
+class GutenbergPackageVersionProvider {
 
 	/** @var array $cache */
 	private static $cache;

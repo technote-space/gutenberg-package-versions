@@ -8,7 +8,7 @@
 
 use /** @noinspection PhpUndefinedClassInspection */
 	PHPUnit\Framework\TestCase;
-use Technote\GutenbergPackageVersion;
+use Technote\GutenbergPackageVersionProvider;
 
 // @codeCoverageIgnoreStart
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class GutenbergHelper extends WP_UnitTestCase {
 
 	private function get_instance() {
-		return new GutenbergPackageVersion();
+		return new GutenbergPackageVersionProvider();
 	}
 
 	public function test_get_packages() {
