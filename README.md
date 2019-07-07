@@ -106,7 +106,23 @@ This repository manages versions of Gutenberg.
 ```
 
 ## Usage
-### Use from composer
+### API
+#### Endpoints
+- for Gutenberg
+  - Tags
+    - https://api.wp-framework.dev/api/v1/gutenberg/tags.json
+  - Versions
+    - https://api.wp-framework.dev/api/v1/gutenberg/versions.json
+  - Each tag
+    - https://api.wp-framework.dev/api/v1/gutenberg/tags/${tag}.json
+- for WP Core
+  - Tags
+    - https://api.wp-framework.dev/api/v1/wp-core/tags.json
+  - Versions
+    - https://api.wp-framework.dev/api/v1/wp-core/versions.json
+  - Each tag
+    - https://api.wp-framework.dev/api/v1/wp-core/tags/${tag}.json
+### composer
 ```bash
 composer require technote/gutenberg-package-versions
 ```
