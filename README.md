@@ -106,9 +106,6 @@ This repository manages versions of Gutenberg.
 ```
 
 ## Usage
-### Use from json file
-- [Download from latest release (for Gutenberg)](https://github.com/technote-space/gutenberg-package-versions/releases/latest/download/gutenberg-versions.json)
-- [Download from latest release (for WP Core)](https://github.com/technote-space/gutenberg-package-versions/releases/latest/download/wp-versions.json)
 ### Use from composer
 ```bash
 composer require technote/gutenberg-package-versions
@@ -122,8 +119,10 @@ use Technote\GutenbergPackageVersionProvider;
 // for Gutenberg
 $provider = new GutenbergPackageVersionProvider();
 
-$provider->get_packages(); // array of (tag => packages)
-$provider->get_packages( '5.2.0' ); // array of (package => version)
+$provider->get_tags(); // tags
+
+$provider->get_versions(); // array of (tag => packages)
+$provider->get_versions( '5.2.0' ); // array of (package => version)
 
 $provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
 $provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 1.0.0-alpha.0
@@ -134,8 +133,10 @@ $provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
 // for WP Core
 $provider = new GutenbergPackageVersionProvider( 'wp' );
 
-$provider->get_packages(); // array of (tag => packages)
-$provider->get_packages( '5.2.0' ); // array of (package => version)
+$provider->get_tags(); // tags
+
+$provider->get_versions(); // array of (tag => packages)
+$provider->get_versions( '5.2.0' ); // array of (package => version)
 
 $provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
 $provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 2.0.1

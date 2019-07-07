@@ -28,26 +28,36 @@ class GutenbergHelper extends WP_UnitTestCase {
 		return new GutenbergPackageVersionProvider( $target );
 	}
 
-	public function test_get_packages() {
-		$packages = $this->get_instance()->get_packages();
+	public function test_get_tags() {
+		$tags = $this->get_instance()->get_tags();
+		$this->assertNotEmpty( $tags );
+		$this->assertContainsOnly( 'string', $tags );
+
+		$tags = $this->get_instance( 'wp' )->get_tags();
+		$this->assertNotEmpty( $tags );
+		$this->assertContainsOnly( 'string', $tags );
+	}
+
+	public function test_get_versions() {
+		$packages = $this->get_instance()->get_versions();
 		$this->assertArrayHasKey( '3.3.0', $packages );
 		$this->assertArrayHasKey( '5.9.2', $packages );
 		$this->assertArrayNotHasKey( 'abc', $packages );
 
-		$packages = $this->get_instance()->get_packages( '3.3.0' );
+		$packages = $this->get_instance()->get_versions( '3.3.0' );
 		$this->assertArrayHasKey( 'wp-a11y', $packages );
 		$this->assertArrayHasKey( 'wp-wordcount', $packages );
 		$this->assertArrayNotHasKey( 'wp-block-editor', $packages );
 		$this->assertArrayNotHasKey( 'abc', $packages );
 
-		$packages = $this->get_instance()->get_packages( '5.9.2' );
+		$packages = $this->get_instance()->get_versions( '5.9.2' );
 		$this->assertArrayHasKey( 'wp-a11y', $packages );
 		$this->assertArrayHasKey( 'wp-wordcount', $packages );
 		$this->assertArrayHasKey( 'wp-block-editor', $packages );
 		$this->assertArrayNotHasKey( 'abc', $packages );
 
-		$this->assertEmpty( $this->get_instance()->get_packages( '5.2.1' ) );
-		$this->assertNotEmpty( $this->get_instance( 'wp' )->get_packages( '5.2.1' ) );
+		$this->assertEmpty( $this->get_instance()->get_versions( '5.2.1' ) );
+		$this->assertNotEmpty( $this->get_instance( 'wp' )->get_versions( '5.2.1' ) );
 	}
 
 	public function test_get_package_version() {

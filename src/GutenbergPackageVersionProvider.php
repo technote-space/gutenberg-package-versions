@@ -42,20 +42,56 @@ class GutenbergPackageVersionProvider {
 	public function __construct( $target = 'gutenberg' ) {
 		$target = strtolower( $target );
 		if ( 'gutenberg' !== $target ) {
-			$target = 'wp';
+			$target = 'wp-core';
 		}
 		$this->target = $target;
 	}
 
 	/**
+	 * @param array $segments
+	 *
 	 * @return string
 	 */
-	public function get_data_path() {
+	public function get_data_path( ...$segments ) {
 		if ( ! isset( static::$path ) ) {
 			static::$path = dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR;
 		}
 
-		return static::$path;
+		return static::$path . $this->target . DIRECTORY_SEPARATOR . implode( DIRECTORY_SEPARATOR, $segments );
+	}
+
+	/**
+	 * @param string $key
+	 *
+	 * @return array
+	 */
+	private function get_cache( $key ) {
+		if ( isset( static::$cache[ $this->target ][ $key ] ) ) {
+			return [ true, static::$cache[ $this->target ][ $key ] ];
+		}
+
+		return [ false, null ];
+	}
+
+	/**
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	private function set_cache( $key, $value ) {
+		static::$cache[ $this->target ][ $key ] = $value;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_tags() {
+		list( $result, $tags ) = $this->get_cache( 'tags' );
+		if ( ! $result ) {
+			$tags = json_decode( $this->get_fs()->get_contents( $this->get_data_path( 'tags.json' ) ), true );
+			$this->set_cache( 'tags', $tags );
+		}
+
+		return $tags;
 	}
 
 	/**
@@ -63,17 +99,19 @@ class GutenbergPackageVersionProvider {
 	 *
 	 * @return array|null
 	 */
-	public function get_packages( $tag = null ) {
-		if ( ! isset( static::$cache[ $this->target ] ) ) {
-			static::$cache[ $this->target ] = json_decode( $this->get_fs()->get_contents( static::get_data_path() . $this->target . '-versions.json' ), true );
+	public function get_versions( $tag = null ) {
+		list( $result, $versions ) = $this->get_cache( 'versions' );
+		if ( ! $result ) {
+			$versions = json_decode( $this->get_fs()->get_contents( $this->get_data_path( 'versions.json' ) ), true );
+			$this->set_cache( 'versions', $versions );
 		}
 
 		if ( ! isset( $tag ) ) {
-			return static::$cache[ $this->target ];
+			return $versions;
 		}
 
-		if ( isset( static::$cache[ $this->target ][ $tag ] ) ) {
-			return static::$cache[ $this->target ][ $tag ];
+		if ( isset( $versions[ $tag ] ) ) {
+			return $versions[ $tag ];
 		}
 
 		return null;
@@ -86,10 +124,10 @@ class GutenbergPackageVersionProvider {
 	 * @return string|false
 	 */
 	public function get_package_version( $tag, $package ) {
-		$packages = $this->get_packages( $tag );
+		$versions = $this->get_versions( $tag );
 
-		if ( isset( $packages[ $package ] ) ) {
-			return $packages[ $package ];
+		if ( isset( $versions[ $package ] ) ) {
+			return $versions[ $package ];
 		}
 
 		return false;
@@ -102,9 +140,9 @@ class GutenbergPackageVersionProvider {
 	 * @return bool
 	 */
 	public function package_exists( $tag, $package ) {
-		$packages = $this->get_packages( $tag );
+		$versions = $this->get_versions( $tag );
 
-		return isset( $packages[ $package ] );
+		return isset( $versions[ $package ] );
 	}
 
 	/**

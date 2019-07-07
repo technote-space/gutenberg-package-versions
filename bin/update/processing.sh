@@ -11,7 +11,7 @@ current=$(cd $(dirname $0);
 pwd)
 source ${current}/../variables.sh ${1}
 
-if [[ -d ${TARGET_TAG_DIR} ]]; then
+if [[ -d ${TARGET_WORK_TAG_DIR} ]]; then
 	echo ""
 	echo ">> Update ${TARGET_NAME} versions"
 
