@@ -53,6 +53,7 @@ jobs:
       php: '7.2'
       script: bash travis-ci/bin/php/phpmd.sh
 
+
     - stage: test
       language: php
       php: '7.3'
@@ -111,6 +112,7 @@ jobs:
       node_js: '11'
       script: bash bin/update.sh
 
+
     - stage: deploy
       language: node_js
       node_js: '11'
@@ -118,7 +120,7 @@ jobs:
       script: skip
       before_deploy:
         - source bin/deploy/env.sh
-        - bash bin/deploy.sh
+        - bash bin/deploy/create-zip.sh
       deploy:
         provider: releases
         skip_cleanup: true
@@ -130,6 +132,18 @@ jobs:
           - ${RELEASE_FILE}
         body: ${RELEASE_BODY}
         overwrite: true
+        on:
+          tags: true
+
+    - stage: deploy
+      language: node_js
+      node_js: '11'
+      dist: trusty
+      script: skip
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script: bin/deploy/gh-pages.sh
         on:
           tags: true
 

@@ -7,12 +7,10 @@ pwd)
 source ${current}/../variables.sh
 
 if [[ ! -d ${DATA_DIR} ]]; then
-	echo "versions are empty"
+	echo "Data not found"
 	exit 1
 fi
 
-echo ""
-echo ">> Commit"
 if [[ -z "${CI}" ]]; then
 	echo "Prevent commit if local"
 	exit
@@ -26,9 +24,11 @@ if [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${DATA_DIR})" ]]; then
 	exit
 fi
 
+echo ""
+echo ">> Commit"
 git -C ${TRAVIS_BUILD_DIR} add ${DATA_DIR}
-git -C ${TRAVIS_BUILD_DIR} status
-git -C ${TRAVIS_BUILD_DIR} commit --quiet -m "${COMMIT_MESSAGE}"
+git -C ${TRAVIS_BUILD_DIR} status --short
+git -C ${TRAVIS_BUILD_DIR} commit -m "${COMMIT_MESSAGE}"
 
 echo ""
 echo ">> Create new tag"

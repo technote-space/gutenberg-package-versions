@@ -9,6 +9,7 @@ data.zip
 /coverage
 /vendor
 /travis-ci
+/gh-pages
 
 /.coveralls.yml
 /phpcs.xml

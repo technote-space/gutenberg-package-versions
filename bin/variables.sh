@@ -23,6 +23,9 @@ WP_REPO=WordPress/wordpress-develop
 WP_IS_WP="TRUE"
 
 GH_PAGES_DIR=${TRAVIS_BUILD_DIR}/gh-pages
+GH_PAGES_CNAME=wp-framework.dev
+GH_PAGES_API_ROOT=api
+GH_PAGES_API_VERSION=v1
 
 TAG_MESSAGE="Auto tag by Travis CI"
 if [[ -n "${TRAVIS_BUILD_NUMBER}" ]]; then
