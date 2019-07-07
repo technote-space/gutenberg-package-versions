@@ -14,11 +14,11 @@ source ${current}/../../variables.sh ${1}
 TAG=${2}
 PACKAGE=${3-""}
 
-if [[ ! -d ${TARGET_DIR}/.git ]]; then
+if [[ ! -d ${TARGET_WORK_REPO_DIR}/.git ]]; then
 	exit 1
 fi
 
-COMMIT=$(git -C ${TARGET_DIR} log -1 --format=format:"%H" ${TAG})
+COMMIT=$(git -C ${TARGET_WORK_REPO_DIR} log -1 --format=format:"%H" ${TAG})
 
 if [[ -z "${PACKAGE}" ]]; then
 	FILE=package.json
@@ -26,8 +26,8 @@ else
 	FILE=packages/${PACKAGE}/package.json
 fi
 
-if [[ -n "$(git -C ${TARGET_DIR} cat-file -e ${COMMIT}:${FILE})" ]]; then
+if [[ -n "$(git -C ${TARGET_WORK_REPO_DIR} cat-file -e ${COMMIT}:${FILE})" ]]; then
 	exit
 fi
 
-git -C ${TARGET_DIR} cat-file -p ${COMMIT}:${FILE} | jq -c .
+git -C ${TARGET_WORK_REPO_DIR} cat-file -p ${COMMIT}:${FILE} | jq -c .

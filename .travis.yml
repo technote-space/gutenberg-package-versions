@@ -127,9 +127,7 @@ jobs:
         api_key:
           secure: ij6EEfS2oV3dnH8ylMaV3AWUnwqQRFAYL6HeC5+EGYjh/EoB6+cTOVfjX5qrTpRzIz1PdsKQaws5DET26uRDVQIGiySL1RaTZ9zoiCe1uwllZ3gXtHaiiEL5oZSz4bjpww1kqbXANGUOlz9Mnkk+9c0ogtpiBSfIVhMshGN2OKwNDPdgwE27aW3d1ccUHpgs52b5lD01B53hZUxtoiyEcoIBGYSL5xLOVNh626j0ViNhlkjQEAS7STV5LSRVDwXEYZB6nsR8nag59BSOf5y33TYCiGFdlkV3H+3xki/Lgrw+ZY0urCcM9s2J7lkxMqnkXKV64sWUmORsY+6ZyskAbO4RFMFQgtxWPuJyy8kSGIpW2yJxztHMNvPbPzG9x+8IAh1yWuX9dgV2Y8CVq4hi36M8Qk5+CWX3xooYIXU/NiKX8niMSWmmzj2cWlq3KO3UGy8/dsTBzOwLliHR2CkPMDvbDJC/s+BeBQ3dOpT3cEMCkV7ceS0AuXL4LXtreB99VYmOguOtlK5XzmDr6EwCMg99hr5okBQljN+hJIxJj2axRCn8rGm2Y5Do2/ogcQ46gmpKVRb21xXuSHloYYgPIdHZUbebtdRSXyHGqohV7jpsuJ3odNUdXigujnOI2NMdlw9aLN773h+ROgxw6mterz8NDs03KlTvcPeVcxjOCe8=
         file:
-          - ${RELEASE_FILE1}
-          - ${RELEASE_FILE2}
-          - ${RELEASE_FILE3}
+          - ${RELEASE_FILE}
         body: ${RELEASE_BODY}
         overwrite: true
         on:

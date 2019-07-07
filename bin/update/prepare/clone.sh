@@ -13,12 +13,12 @@ source ${current}/../../variables.sh ${1}
 
 echo ""
 echo ">> Clone ${TARGET_NAME}"
-if [[ ! -d ${TARGET_DIR}/.git ]]; then
-	git clone --depth=1 https://github.com/${TARGET_REPO}.git ${TARGET_DIR}
+if [[ ! -d ${TARGET_WORK_REPO_DIR}/.git ]]; then
+	git clone --depth=1 https://github.com/${TARGET_REPO}.git ${TARGET_WORK_REPO_DIR}
 fi
 
 echo ""
 echo ">> Fetch ${TARGET_NAME}"
-git -C ${TARGET_DIR} fetch -p --tags
-git -C ${TARGET_DIR} reset --hard origin/master
-git -C ${TARGET_DIR} pull
+git -C ${TARGET_WORK_REPO_DIR} fetch -p --tags
+git -C ${TARGET_WORK_REPO_DIR} reset --hard origin/master
+git -C ${TARGET_WORK_REPO_DIR} pull

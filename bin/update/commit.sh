@@ -21,18 +21,14 @@ fi
 echo ""
 echo ">> Check diff"
 git -C ${TRAVIS_BUILD_DIR} checkout master
-if [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${DATA_DIR})" ]] &&
-   [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${GUTENBERG_VERSION_FILE})" ]]
-   [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${WP_VERSION_FILE})" ]]; then
+if [[ -z "$(git -C ${TRAVIS_BUILD_DIR} status --short ${DATA_DIR})" ]]; then
 	echo "There is no diff"
 	exit
 fi
 
 git -C ${TRAVIS_BUILD_DIR} add ${DATA_DIR}
-git -C ${TRAVIS_BUILD_DIR} add ${GUTENBERG_VERSION_FILE}
-git -C ${TRAVIS_BUILD_DIR} add ${WP_VERSION_FILE}
 git -C ${TRAVIS_BUILD_DIR} status
-git -C ${TRAVIS_BUILD_DIR} commit -m "${COMMIT_MESSAGE}"
+git -C ${TRAVIS_BUILD_DIR} commit --quiet -m "${COMMIT_MESSAGE}"
 
 echo ""
 echo ">> Create new tag"
