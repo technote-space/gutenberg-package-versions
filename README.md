@@ -103,7 +103,6 @@ This repository manages versions of Gutenberg.
   "wp-viewport": "2.0.0",
   "wp-wordcount": "2.0.0"
 }
-
 ```
 
 ## Usage
