@@ -20,6 +20,7 @@ cache:
   directories:
     - "${HOME}/.composer/cache"
     - "${TRAVIS_BUILD_DIR}/.work"
+    - "${TRAVIS_BUILD_DIR}/.plugin"
 
 stages:
   - name: check
@@ -143,7 +144,7 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: bin/deploy/gh-pages.sh
+        script: bash bin/deploy/gh-pages.sh
         on:
           tags: true
 
