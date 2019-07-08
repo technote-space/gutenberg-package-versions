@@ -7,8 +7,8 @@
 [![PHP: >=5.6](https://img.shields.io/badge/PHP-%3E%3D5.6-orange.svg)](http://php.net/)
 [![WordPress: >=5.0](https://img.shields.io/badge/WordPress-%3E%3D5.0-brightgreen.svg)](https://wordpress.org/)
 
-This repository fetch versions of Gutenberg daily,  
-that are provided by `API` and `composer`.
+This repository updates the versions of Gutenberg automatically every day.  
+The version data is provided by `API` and `composer`.
 
 ## Data
 ### Versions of all tags
