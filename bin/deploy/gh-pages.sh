@@ -45,4 +45,4 @@ git -C ${GH_PAGES_DIR} commit -m "${COMMIT_MESSAGE}"
 
 echo ""
 echo ">> Push"
-git -C ${TRAVIS_BUILD_DIR} push origin gh-pages
+git -C ${GH_PAGES_DIR} push origin gh-pages
