@@ -82,6 +82,20 @@ class GutenbergPackageVersionProvider {
 	}
 
 	/**
+	 * @param string $tag
+	 *
+	 * @return string
+	 */
+	public function normalize_tag( $tag ) {
+		$tag = preg_replace( '#\Av\.?#', '', $tag );
+		while ( substr_count( $tag, '.' ) < 2 ) {
+			$tag .= '.0';
+		}
+
+		return $tag;
+	}
+
+	/**
 	 * @return array
 	 */
 	public function get_tags() {
@@ -110,6 +124,7 @@ class GutenbergPackageVersionProvider {
 			return $versions;
 		}
 
+		$tag = $this->normalize_tag( $tag );
 		if ( isset( $versions[ $tag ] ) ) {
 			return $versions[ $tag ];
 		}

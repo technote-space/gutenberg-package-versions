@@ -28,6 +28,16 @@ class GutenbergHelper extends WP_UnitTestCase {
 		return new GutenbergPackageVersionProvider( $target );
 	}
 
+	public function test_normalize_tag() {
+		$this->assertEquals( '1.2.3', $this->get_instance()->normalize_tag( '1.2.3' ) );
+		$this->assertEquals( '1.2.3', $this->get_instance()->normalize_tag( 'v1.2.3' ) );
+		$this->assertEquals( '1.2.3', $this->get_instance()->normalize_tag( 'v.1.2.3' ) );
+		$this->assertEquals( '1.0.0', $this->get_instance()->normalize_tag( '1' ) );
+		$this->assertEquals( '1.0.0', $this->get_instance()->normalize_tag( 'v1' ) );
+		$this->assertEquals( '1.0.0', $this->get_instance()->normalize_tag( 'v.1' ) );
+		$this->assertEquals( '1.2.0', $this->get_instance()->normalize_tag( 'v.1.2' ) );
+	}
+
 	public function test_get_tags() {
 		$tags = $this->get_instance()->get_tags();
 		$this->assertNotEmpty( $tags );
@@ -69,14 +79,17 @@ class GutenbergHelper extends WP_UnitTestCase {
 
 		$this->assertFalse( $this->get_instance()->get_package_version( '5.1.0', 'wp-block-editor' ) );
 		$this->assertEquals( '1.0.0-alpha.0', $this->get_instance()->get_package_version( '5.2.0', 'wp-block-editor' ) );
+		$this->assertEquals( '1.0.0-alpha.0', $this->get_instance()->get_package_version( 'v5.2.0', 'wp-block-editor' ) );
 		$this->assertFalse( $this->get_instance( 'wp' )->get_package_version( '5.1.0', 'wp-block-editor' ) );
 		$this->assertEquals( '2.0.1', $this->get_instance( 'wp' )->get_package_version( '5.2.0', 'wp-block-editor' ) );
+		$this->assertEquals( '2.0.1', $this->get_instance( 'wp' )->get_package_version( 'v5.2', 'wp-block-editor' ) );
 	}
 
 	public function test_package_exists() {
 		$this->assertFalse( $this->get_instance()->package_exists( 'abc', 'wp-a11y' ) );
 		$this->assertFalse( $this->get_instance()->package_exists( '3.3.0', 'wp-block-editor' ) );
 		$this->assertTrue( $this->get_instance()->package_exists( '3.3.0', 'wp-a11y' ) );
+		$this->assertTrue( $this->get_instance()->package_exists( '3.3', 'wp-a11y' ) );
 		$this->assertTrue( $this->get_instance()->package_exists( '5.9.2', 'wp-block-editor' ) );
 		$this->assertTrue( $this->get_instance()->package_exists( '5.9.2', 'wp-a11y' ) );
 
