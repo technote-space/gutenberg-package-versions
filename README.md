@@ -7,7 +7,7 @@
 [![PHP: >=5.6](https://img.shields.io/badge/PHP-%3E%3D5.6-orange.svg)](http://php.net/)
 [![WordPress: >=5.0](https://img.shields.io/badge/WordPress-%3E%3D5.0-brightgreen.svg)](https://wordpress.org/)
 
-This repository updates the versions of Gutenberg automatically every day.  
+This repository fetches the versions of Gutenberg automatically every day.  
 The version data is provided by `API` and `composer`.
 
 ## Data
@@ -25,13 +25,12 @@ The version data is provided by `API` and `composer`.
     "wp-a11y": "1.1.1",
     "wp-api-fetch": "1.0.1",
     "wp-autop": "1.1.1",
-      
-      ...
-      
-      "wp-url": "1.2.1",
-      "wp-viewport": "1.0.1",
-      "wp-wordcount": "1.1.1"
-    }
+    
+    ...
+    
+    "wp-url": "1.2.1",
+    "wp-viewport": "1.0.1",
+    "wp-wordcount": "1.1.1"
   },
   
   ...
@@ -70,7 +69,7 @@ The version data is provided by `API` and `composer`.
 - `packages`
   - `wp-<package>` => `version` 
 #### Example
-```
+```json
 {
   "wp-a11y": "2.0.0",
   "wp-api-fetch": "2.0.0",
