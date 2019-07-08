@@ -168,6 +168,13 @@ $provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 2.0.1
 $provider->package_exists( '5.1.0', 'wp-block-editor' ); // false
 $provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
 ```
+#### Addition
+- Tag format
+  - 1     (= 1.0.0)
+  - 1.2   (= 1.2.0)
+  - 1.2.3
+  - v1.2.3 (= 1.2.3)
+  - v.1.2.3 (= 1.2.3)
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
