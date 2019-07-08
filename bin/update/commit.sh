@@ -12,6 +12,7 @@ if [[ ! -d ${DATA_DIR} ]]; then
 fi
 
 if [[ -z "${CI}" ]]; then
+	git -C ${TRAVIS_BUILD_DIR} status --short ${DATA_DIR}
 	echo "Prevent commit if local"
 	exit
 fi

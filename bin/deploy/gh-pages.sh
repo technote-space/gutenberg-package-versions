@@ -32,6 +32,7 @@ if [[ -z "$(git -C ${GH_PAGES_DIR} status --short)" ]]; then
 fi
 
 if [[ -z "${CI}" ]]; then
+	git -C ${GH_PAGES_DIR} status --short
 	echo "Prevent commit if local"
 	exit
 fi
