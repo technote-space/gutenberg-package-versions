@@ -9,15 +9,15 @@
 
 This repository manages versions of Gutenberg.
 
-```bash
-composer require technote/gutenberg-package-versions
-```
-
 ## Data
-- `versions.json`
-  - array of `tag` => `packages`
+### Versions
+* `data/gutenberg-versions.json`
+* `data/wp-versions.json`
+#### Detail
+- array of (`tag` => `packages`)
   - `packages`
-    - `wp-<package>` => `version` 
+    - array of (`wp-<package>` => `version`)
+#### Example
 ```
 {
   "v3.3.0": {
@@ -57,26 +57,116 @@ composer require technote/gutenberg-package-versions
     "wp-viewport": "2.4.0",
     "wp-wordcount": "2.3.0"
   }
+  
+  ...
+  
 }
 ```
-- `data/<TAG>.json`
-  - `packages`
-    - `wp-<package>` => `version` 
+### Each Tag's Versions
+* `data/gutenberg/<TAG>.json`
+* `data/wordpress/<TAG>.json`
+#### Contents
+- `packages`
+  - `wp-<package>` => `version` 
+#### Example
+```
+{
+  "wp-a11y": "2.0.0",
+  "wp-api-fetch": "2.0.0",
+  "wp-autop": "2.0.0",
+  "wp-blob": "2.0.0",
+  "wp-block-library": "2.0.0",
+  "wp-block-serialization-default-parser": "1.0.0-rc.0",
+  "wp-block-serialization-spec-parser": "1.0.1",
+  "wp-blocks": "3.0.0",
+  "wp-components": "3.0.0",
+  "wp-compose": "2.0.0",
+  "wp-core-data": "2.0.0",
+  "wp-data": "2.0.0",
+  "wp-date": "2.0.0",
+  "wp-deprecated": "2.0.0",
+  "wp-dom-ready": "2.0.0",
+  "wp-dom": "2.0.0",
+  "wp-editor": "3.0.0",
+  "wp-element": "2.0.0",
+  "wp-hooks": "2.0.0",
+  "wp-html-entities": "2.0.0",
+  "wp-i18n": "2.0.0",
+  "wp-is-shallow-equal": "1.1.4",
+  "wp-keycodes": "2.0.0",
+  "wp-nux": "2.0.0",
+  "wp-plugins": "2.0.0",
+  "wp-redux-routine": "2.0.0",
+  "wp-shortcode": "2.0.0",
+  "wp-token-list": "1.0.0",
+  "wp-url": "2.0.0",
+  "wp-viewport": "2.0.0",
+  "wp-wordcount": "2.0.0"
+}
+```
 
-## Helper
+## Usage
+### API
+#### Endpoints
+- for Gutenberg
+  - Tags
+    - https://api.wp-framework.dev/api/v1/gutenberg/tags.json
+  - Versions
+    - https://api.wp-framework.dev/api/v1/gutenberg/versions.json
+  - Each tag
+    - https://api.wp-framework.dev/api/v1/gutenberg/tags/${tag}.json
+      - e.g.
+        - https://api.wp-framework.dev/api/v1/gutenberg/tags/3.3.0.json
+        - https://api.wp-framework.dev/api/v1/gutenberg/tags/5.1.1.json
+        - https://api.wp-framework.dev/api/v1/gutenberg/tags/5.2.0.json
+- for WP Core
+  - Tags
+    - https://api.wp-framework.dev/api/v1/wp-core/tags.json
+  - Versions
+    - https://api.wp-framework.dev/api/v1/wp-core/versions.json
+  - Each tag
+    - https://api.wp-framework.dev/api/v1/wp-core/tags/${tag}.json
+      - e.g.
+        - https://api.wp-framework.dev/api/v1/wp-core/tags/5.0.0.json
+        - https://api.wp-framework.dev/api/v1/wp-core/tags/5.1.1.json
+        - https://api.wp-framework.dev/api/v1/wp-core/tags/5.2.0.json
+### composer
+```bash
+composer require technote/gutenberg-package-versions
+```
+#### Helper
 ```php
 <?php
 
-use Technote\GutenbergPackageVersion;
+use Technote\GutenbergPackageVersionProvider;
 
-( new GutenbergPackageVersion() )->get_packages(); // array of (tag => packages)
-( new GutenbergPackageVersion() )->get_packages( 'v5.2.0' ); // array of (package => version)
+// for Gutenberg
+$provider = new GutenbergPackageVersionProvider();
 
-( new GutenbergPackageVersion() )->get_package_version( 'v5.1.0', 'wp-block-editor' ); // false
-( new GutenbergPackageVersion() )->get_package_version( 'v5.2.0', 'wp-block-editor' ); // 1.0.0-alpha.0
+$provider->get_tags(); // tags
 
-( new GutenbergPackageVersion() )->package_exists( 'v5.1.0', 'wp-block-editor' ); // false
-( new GutenbergPackageVersion() )->package_exists( 'v5.2.0', 'wp-block-editor' ); // true
+$provider->get_versions(); // array of (tag => packages)
+$provider->get_versions( '5.2.0' ); // array of (package => version)
+
+$provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
+$provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 1.0.0-alpha.0
+
+$provider->package_exists( '5.1.0', 'wp-block-editor' ); // false
+$provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
+
+// for WP Core
+$provider = new GutenbergPackageVersionProvider( 'wp' );
+
+$provider->get_tags(); // tags
+
+$provider->get_versions(); // array of (tag => packages)
+$provider->get_versions( '5.2.0' ); // array of (package => version)
+
+$provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
+$provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 2.0.1
+
+$provider->package_exists( '5.1.0', 'wp-block-editor' ); // false
+$provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
 ```
 
 ## Author

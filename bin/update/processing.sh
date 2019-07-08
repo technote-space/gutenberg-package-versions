@@ -2,23 +2,19 @@
 
 set -e
 
-current=$(cd $(dirname $0);
-pwd)
-source ${current}/../variables.sh
-
-if [[ ! -d ${TAG_DIR} ]]; then
-	echo "packages are empty"
+if [[ $# -lt 1 ]]; then
+	echo "usage: $0 <VARIABLE_PREFIX>"
 	exit 1
 fi
 
-echo ""
-echo ">> Update versions"
-mkdir -p ${VERSION_DIR}
-find ${TAG_DIR} -maxdepth 1 -type d -print0 | xargs -n1 --no-run-if-empty -0 basename | grep -v "tags" | while read -r tag;
-do
-	if [[ -f ${TAG_DIR}/${tag}/package.json ]] && [[ -d ${TAG_DIR}/${tag}/packages ]]; then
-		bash ${current}/processing/get-versions.sh ${tag}
-	fi
-done
+current=$(cd $(dirname $0);
+pwd)
+source ${current}/../variables.sh ${1}
 
-bash ${current}/processing/merge.sh
+if [[ -d ${TARGET_WORK_TAG_DIR} ]]; then
+	echo ""
+	echo ">> Update ${TARGET_NAME} versions"
+
+	bash ${current}/processing/get-versions.sh ${1}
+	bash ${current}/processing/merge.sh ${1}
+fi
