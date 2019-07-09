@@ -22,3 +22,5 @@
 /README.md export-ignore
 /_config.yml export-ignore
 /id_rsa.enc export-ignore
+/data/gutenberg/tags export-ignore
+/data/wp-core/tags export-ignore
