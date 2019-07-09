@@ -7,12 +7,13 @@
 [![PHP: >=5.6](https://img.shields.io/badge/PHP-%3E%3D5.6-orange.svg)](http://php.net/)
 [![WordPress: >=5.0](https://img.shields.io/badge/WordPress-%3E%3D5.0-brightgreen.svg)](https://wordpress.org/)
 
-This repository manages versions of Gutenberg.
+This repository fetches the versions of Gutenberg automatically every day.  
+The version data is provided by `API` and `composer`.
 
 ## Data
-### Versions
-* `data/gutenberg-versions.json`
-* `data/wp-versions.json`
+### Versions of all tags
+* `data/gutenberg-versions.json` (for Gutenberg Plugin)
+* `data/wp-versions.json` (for WP Core)
 #### Detail
 - array of (`tag` => `packages`)
   - `packages`
@@ -24,13 +25,12 @@ This repository manages versions of Gutenberg.
     "wp-a11y": "1.1.1",
     "wp-api-fetch": "1.0.1",
     "wp-autop": "1.1.1",
-      
-      ...
-      
-      "wp-url": "1.2.1",
-      "wp-viewport": "1.0.1",
-      "wp-wordcount": "1.1.1"
-    }
+    
+    ...
+    
+    "wp-url": "1.2.1",
+    "wp-viewport": "1.0.1",
+    "wp-wordcount": "1.1.1"
   },
   
   ...
@@ -62,14 +62,14 @@ This repository manages versions of Gutenberg.
   
 }
 ```
-### Each Tag's Versions
-* `data/gutenberg/<TAG>.json`
-* `data/wordpress/<TAG>.json`
+### Versions of each bag
+* `data/gutenberg/<TAG>.json` (for Gutenberg Plugin)
+* `data/wordpress/<TAG>.json` (for WP Core)
 #### Contents
 - `packages`
   - `wp-<package>` => `version` 
 #### Example
-```
+```json
 {
   "wp-a11y": "2.0.0",
   "wp-api-fetch": "2.0.0",
@@ -151,8 +151,9 @@ $provider->get_versions( '5.2.0' ); // array of (package => version)
 $provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
 $provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 1.0.0-alpha.0
 
-$provider->package_exists( '5.1.0', 'wp-block-editor' ); // false
+$provider->package_exists( '5.1', 'wp-block-editor' ); // false
 $provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
+$provider->package_exists( 'v5.2', 'wp-block-editor' ); // true
 
 // for WP Core
 $provider = new GutenbergPackageVersionProvider( 'wp' );
@@ -165,8 +166,9 @@ $provider->get_versions( '5.2.0' ); // array of (package => version)
 $provider->get_package_version( '5.1.0', 'wp-block-editor' ); // false
 $provider->get_package_version( '5.2.0', 'wp-block-editor' ); // 2.0.1
 
-$provider->package_exists( '5.1.0', 'wp-block-editor' ); // false
+$provider->package_exists( '5.1', 'wp-block-editor' ); // false
 $provider->package_exists( '5.2.0', 'wp-block-editor' ); // true
+$provider->package_exists( 'v5.2', 'wp-block-editor' ); // true
 ```
 #### Addition
 - Tag format
