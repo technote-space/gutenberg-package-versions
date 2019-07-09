@@ -31,14 +31,16 @@ stages:
     if: branch = master and tag IS blank and type IN (api, cron)
   - name: deploy
     if: tag IS present
+  - name: publish
+    if: tag IS present or (branch = master and tag IS blank and type = pull_request)
 
 before_install:
-  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]]; then openssl aes-256-cbc -K $encrypted_fea3c3191547_key -iv $encrypted_fea3c3191547_iv -in ./id_rsa.enc -out ~/.ssh/id_rsa -d 2>/dev/null; fi
-  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]]; then chmod 600 ~/.ssh/id_rsa; fi
-  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]]; then echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config; fi
-  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]]; then git config --global user.email "technote.space@gmail.com"; fi
-  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]]; then git config --global user.name "Technote"; fi
-  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]]; then git config --global url."git@github.com:".insteadOf "https://github.com/"; fi
+  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Publish" ]]; then openssl aes-256-cbc -K $encrypted_fea3c3191547_key -iv $encrypted_fea3c3191547_iv -in ./id_rsa.enc -out ~/.ssh/id_rsa -d 2>/dev/null; fi
+  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Publish" ]]; then chmod 600 ~/.ssh/id_rsa; fi
+  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Publish" ]]; then echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config; fi
+  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Publish" ]]; then git config --global user.email "technote.space@gmail.com"; fi
+  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Publish" ]]; then git config --global user.name "Technote"; fi
+  - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Update" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Deploy" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Publish" ]]; then git config --global url."git@github.com:".insteadOf "https://github.com/"; fi
 
 before_script:
   - if [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Check" ]] || [[ "${TRAVIS_BUILD_STAGE_NAME}" == "Test" ]]; then git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci; fi
@@ -137,7 +139,8 @@ jobs:
         on:
           tags: true
 
-    - stage: deploy
+
+    - stage: publish
       language: node_js
       node_js: '11'
       dist: trusty
@@ -145,7 +148,7 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: bash bin/deploy/gh-pages.sh
+        script: bash bin/publish/gh-pages.sh
         on:
           tags: true
 
