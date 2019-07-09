@@ -39,7 +39,7 @@ fi
 
 echo ""
 echo ">> Commit"
-git -C ${GH_PAGES_DIR} add --all
+git -C ${GH_PAGES_DIR} add -a
 git -C ${GH_PAGES_DIR} status --short
 git -C ${GH_PAGES_DIR} commit -m "${COMMIT_MESSAGE}"
 
