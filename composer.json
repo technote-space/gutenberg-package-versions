@@ -34,11 +34,6 @@
     "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5"
   },
   "scripts": {
-    "setup": [
-      "composer install --no-dev",
-      "npm install --prefix assets/js --save-dev",
-      "npm run build --prefix assets/js"
-    ],
     "test": [
       "@phpcs",
       "@phpmd",
