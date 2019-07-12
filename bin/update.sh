@@ -21,4 +21,4 @@ bash ${current}/update/processing.sh ${GUTENBERG_VARIABLE_PREFIX}&
 bash ${current}/update/processing.sh ${WP_VARIABLE_PREFIX}&
 wait
 
-bash ${current}/update/commit.sh
+bash ${TRAVIS_BUILD_DIR}/travis-ci/bin/update/commit.sh ${DATA_DIR}
