@@ -8,7 +8,13 @@
 [![WordPress: >=5.0](https://img.shields.io/badge/WordPress-%3E%3D5.0-brightgreen.svg)](https://wordpress.org/)
 
 This repository fetches the versions of Gutenberg automatically every day.  
-The version data is provided by `API` and `composer`.
+The version data is provided by `API` and `composer`.  
+You can also use these data by [Wrapper](https://github.com/technote-space/gutenberg-packages).
+
+## Last updated
+|Gutenberg tag|WordPress tag|Last updated at|
+|:---:|:---:|:---:|
+|[v6.1.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/6.1.1.json)|[v5.2.2](https://api.wp-framework.dev/api/v1/wp-core/tags/5.2.2.json)|[13 July 2019 10:08:30 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/119022470)|
 
 ## Data
 ### Versions of all tags
