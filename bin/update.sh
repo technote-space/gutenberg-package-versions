@@ -21,6 +21,4 @@ bash ${current}/update/processing.sh ${GUTENBERG_VARIABLE_PREFIX}&
 bash ${current}/update/processing.sh ${WP_VARIABLE_PREFIX}&
 wait
 
-bash ${current}/update/summary.sh
-
 bash ${SCRIPT_DIR}/update/commit.sh
