@@ -29,7 +29,7 @@ GH_PAGES_API_ROOT=api
 GH_PAGES_API_VERSION=v1
 
 TAG_MESSAGE="Auto tag by Travis CI"
-if [[ -n "${TRAVIS_BUILD_NUMBER}" ]]; then
+if [[ -n "${TRAVIS_BUILD_WEB_URL}" ]]; then
 	COMMIT_MESSAGE="feat: Update version data (Travis build: ${TRAVIS_BUILD_WEB_URL})"
 else
 	COMMIT_MESSAGE="feat: Update version data"
