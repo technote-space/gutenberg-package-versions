@@ -16,6 +16,8 @@ You can also use these data by [Wrapper](https://github.com/technote-space/guten
 |:---:|:---:|:---:|
 |[v${gutenberg_tag}](${gutenberg_tag_url})|[v${wordpress_tag}](${wordpress_tag_url})|[${last_updated_at}](${last_updated_at_url})|
 
+https://api.wp-framework.dev/api/v1/summary.json
+
 ## Data
 ### Versions of all tags
 * `data/gutenberg-versions.json` (for Gutenberg Plugin)
