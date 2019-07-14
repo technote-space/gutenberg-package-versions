@@ -18,8 +18,7 @@ do
 		echo ""
 		echo ">> ${tag}"
 		jq -sc . $(find ${TARGET_WORK_TAG_DIR}/${tag}/packages/*.json -maxdepth 1 -type f)\
-		 | jq -rc '[ .[] | select( has( "private" ) | not) | {key:.name, value:.version} ] | from_entries'\
-		 | sed 's/@wordpress\//wp-/g'\
+		 | jq -rc '[ .[] | select( has( "private" ) | not) | {key:.name | gsub( "@wordpress/" ; "wp-" ), value:.version} ] | from_entries'\
 		 > ${TARGET_PUBLISH_TAGS_DIR}/${tag}.json
 	fi
 done
