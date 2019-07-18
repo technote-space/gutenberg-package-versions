@@ -2,8 +2,6 @@
 [issues]: https://github.com/technote-space/gutenberg-package-versions/issues
 [fork]: https://github.com/technote-space/gutenberg-package-versions/fork
 [pr]: https://github.com/technote-space/gutenberg-package-versions/compare
-[jest]: https://jestjs.io/
-[mocha]: https://mochajs.org/
 [phpcs]: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage
 [phpmd]: https://phpmd.org/documentation/index.html
 [wp-test]: https://developer.wordpress.org/cli/commands/scaffold/plugin-tests/
@@ -20,8 +18,6 @@ Please note we have a [Contributor Code of Conduct][code-of-conduct], please fol
    - [`PHPCS`][phpcs]
    - [`PHPMD`][phpmd]
    - [`WordPress Plugin Tests`][wp-test]
-   - [`Jest`][jest]
-   - [`Mocha`][mocha]
    - `Build test`
 1. Create a new branch: `git checkout -b my-branch-name`
 1. Make your change, add tests, and make sure the tests still pass.
