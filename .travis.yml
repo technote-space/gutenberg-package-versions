@@ -76,37 +76,12 @@ jobs:
       script: bash travis-ci/bin/php/wp-test.sh
     - stage: test
       language: php
-      php: '7.0'
-      env: WP_VERSION=5.0
-      script: bash travis-ci/bin/php/wp-test.sh
-    - stage: test
-      language: php
       php: '5.6'
       env:
         - WP_VERSION=5.0
         - WP_MULTISITE=1
         - ACTIVATE_GUTENBERG=1
         - COVERAGE_REPORT=1
-      script: bash travis-ci/bin/php/wp-test.sh
-    - stage: test
-      language: php
-      php: '5.6'
-      env: WP_VERSION=4.9
-      script: bash travis-ci/bin/php/wp-test.sh
-    - stage: test
-      language: php
-      php: '5.6'
-      env: WP_VERSION=3.9
-      script: bash travis-ci/bin/php/wp-test.sh
-    - stage: test
-      language: php
-      php: '7.3'
-      env: WP_VERSION=trunk
-      script: bash travis-ci/bin/php/wp-test.sh
-    - stage: test
-      language: php
-      php: '5.6'
-      env: WP_VERSION=trunk
       script: bash travis-ci/bin/php/wp-test.sh
 
 
@@ -148,8 +123,3 @@ jobs:
         script: bash bin/deploy/gh-pages.sh
         on:
           tags: true
-
-  allow_failures:
-    - env: WP_VERSION=4.9
-    - env: WP_VERSION=3.9
-    - env: WP_VERSION=trunk
