@@ -14,6 +14,10 @@ Please note we have a [Contributor Code of Conduct][code-of-conduct], please fol
 ## Submitting a pull request
 
 1. [Fork][fork] and clone the repository
+1. Configure and install the dependencies:
+   - `composer setup`  # install and build
+   - `composer bin:download`  # download test scripts
+   - `composer bin:prepare`   # prepare test settings and download dependent plugins
 1. Make sure the tests pass on your machine: `composer bin:test`, which contains
    - [`PHPCS`][phpcs]
    - [`PHPMD`][phpmd]
