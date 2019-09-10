@@ -1,5 +1,6 @@
 # Gutenberg Package Versions
 
+[![Build Status](https://github.com/technote-space/gutenberg-package-versions/workflows/Build/badge.svg)](https://github.com/technote-space/gutenberg-package-versions/actions)
 [![Build Status](https://travis-ci.com/technote-space/gutenberg-package-versions.svg?branch=master)](https://travis-ci.com/technote-space/gutenberg-package-versions)
 [![Coverage Status](https://coveralls.io/repos/github/technote-space/gutenberg-package-versions/badge.svg?branch=master)](https://coveralls.io/github/technote-space/gutenberg-package-versions?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/gutenberg-package-versions/badge)](https://www.codefactor.io/repository/github/technote-space/gutenberg-package-versions)
