@@ -34,22 +34,37 @@
     "phpunit/phpunit": "^4.8 || ^5.7 || ^7.5"
   },
   "scripts": {
-    "test": [
-      "@phpcs",
-      "@phpmd",
-      "@phpunit"
+    "setup": [
+      "@prepare"
     ],
-    "phpunit": [
-      "phpunit"
+    "prepare": [
+      "@prepare:php"
+    ],
+    "prepare:php": [
+      "composer install --no-interaction --prefer-dist --no-suggest"
+    ],
+    "test": [
+      "@stage-lint",
+      "@stage-test"
+    ],
+    "stage-lint": [
+      "@phpcs",
+      "@phpmd"
+    ],
+    "stage-test": [
+      "@bin:wp-test-p2"
     ],
     "phpcs": [
       "phpcs --standard=./phpcs.xml"
     ],
-    "fix": [
-      "phpcbf --standard=./phpcs.xml"
-    ],
     "phpmd": [
       "phpmd ./src/,./tests/ text phpmd.xml"
+    ],
+    "phpunit": [
+      "phpunit --stop-on-failure --colors=always"
+    ],
+    "phpunit:no": [
+      "@phpunit --no-coverage"
     ],
     "coveralls": [
       "php-coveralls -v"
