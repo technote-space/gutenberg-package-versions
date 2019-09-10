@@ -11,6 +11,9 @@ This repository fetches the versions of Gutenberg automatically every day.
 The version data is provided by `API` and `composer`.  
 You can also use these data by [Wrapper](https://github.com/technote-space/gutenberg-packages).
 
+<!-- START doctoc -->
+<!-- END doctoc -->
+
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
