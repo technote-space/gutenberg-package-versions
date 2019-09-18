@@ -11,32 +11,10 @@ This repository fetches the versions of Gutenberg automatically every day.
 The version data is provided by `API` and `composer`.  
 You can also use these data by [Wrapper](https://github.com/technote-space/gutenberg-packages).
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [Last updated](#last-updated)
-- [Data](#data)
-  - [Versions of all tags](#versions-of-all-tags)
-    - [Detail](#detail)
-    - [Example](#example)
-  - [Versions of each bag](#versions-of-each-bag)
-    - [Contents](#contents)
-    - [Example](#example-1)
-- [Usage](#usage)
-  - [API](#api)
-    - [Endpoints](#endpoints)
-  - [composer](#composer)
-    - [Helper](#helper)
-    - [Addition](#addition)
-- [Author](#author)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
-|[v6.5.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/6.5.0-rc.1.json)|[v5.2.3](https://api.wp-framework.dev/api/v1/wp-core/tags/5.2.3.json)|[17 September 2019 16:06:32 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/128037284)|
+|[v6.5.0](https://api.wp-framework.dev/api/v1/gutenberg/tags/6.5.0.json)|[v5.2.3](https://api.wp-framework.dev/api/v1/wp-core/tags/5.2.3.json)|[18 September 2019 16:09:33 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/128206191)|
 
 https://api.wp-framework.dev/api/v1/summary.json
 
