@@ -15,22 +15,21 @@ You can also use these data by [Wrapper](https://github.com/technote-space/guten
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Gutenberg Package Versions](#gutenberg-package-versions)
-  - [Last updated](#last-updated)
-  - [Data](#data)
-    - [Versions of all tags](#versions-of-all-tags)
-      - [Detail](#detail)
-      - [Example](#example)
-    - [Versions of each bag](#versions-of-each-bag)
-      - [Contents](#contents)
-      - [Example](#example-1)
-  - [Usage](#usage)
-    - [API](#api)
-      - [Endpoints](#endpoints)
-    - [composer](#composer)
-      - [Helper](#helper)
-      - [Addition](#addition)
-  - [Author](#author)
+- [Last updated](#last-updated)
+- [Data](#data)
+  - [Versions of all tags](#versions-of-all-tags)
+    - [Detail](#detail)
+    - [Example](#example)
+  - [Versions of each bag](#versions-of-each-bag)
+    - [Contents](#contents)
+    - [Example](#example-1)
+- [Usage](#usage)
+  - [API](#api)
+    - [Endpoints](#endpoints)
+  - [composer](#composer)
+    - [Helper](#helper)
+    - [Addition](#addition)
+- [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
