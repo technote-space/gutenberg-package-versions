@@ -1,26 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [Gutenberg Package Versions](#gutenberg-package-versions)
-  - [Last updated](#last-updated)
-  - [Data](#data)
-    - [Versions of all tags](#versions-of-all-tags)
-      - [Detail](#detail)
-      - [Example](#example)
-    - [Versions of each bag](#versions-of-each-bag)
-      - [Contents](#contents)
-      - [Example](#example-1)
-  - [Usage](#usage)
-    - [API](#api)
-      - [Endpoints](#endpoints)
-    - [composer](#composer)
-      - [Helper](#helper)
-      - [Addition](#addition)
-  - [Author](#author)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Gutenberg Package Versions
 
 [![Build Status](https://travis-ci.com/technote-space/gutenberg-package-versions.svg?branch=master)](https://travis-ci.com/technote-space/gutenberg-package-versions)
@@ -37,7 +14,7 @@ You can also use these data by [Wrapper](https://github.com/technote-space/guten
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
-|[v6.8.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/6.8.0-rc.1.json)|[v5.2.4](https://api.wp-framework.dev/api/v1/wp-core/tags/5.2.4.json)|[28 October 2019 16:29:04 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/133859328)|
+|[v6.8.0](https://api.wp-framework.dev/api/v1/gutenberg/tags/6.8.0.json)|[v5.2.4](https://api.wp-framework.dev/api/v1/wp-core/tags/5.2.4.json)|[30 October 2019 16:31:52 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/134237303)|
 
 https://api.wp-framework.dev/api/v1/summary.json
 
