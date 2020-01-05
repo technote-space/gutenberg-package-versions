@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class GutenbergPackageVersionProvider {
 
 	/** @var array $cache */
-	protected static $cache;
+	protected static $cache = [];
 
 	/** @var WP_Filesystem_Direct $fs_cache */
 	protected static $fs_cache;
@@ -64,6 +64,7 @@ class GutenbergPackageVersionProvider {
 	 * @param string $key
 	 *
 	 * @return array
+	 * @SuppressWarnings(PHPMD.UndefinedVariable)
 	 */
 	private function get_cache( $key ) {
 		if ( isset( static::$cache[ $this->target ][ $key ] ) ) {
@@ -76,6 +77,7 @@ class GutenbergPackageVersionProvider {
 	/**
 	 * @param string $key
 	 * @param mixed $value
+	 * @SuppressWarnings(PHPMD.UndefinedVariable)
 	 */
 	private function set_cache( $key, $value ) {
 		static::$cache[ $this->target ][ $key ] = $value;
@@ -167,11 +169,9 @@ class GutenbergPackageVersionProvider {
 		if ( ! static::$fs_cache ) {
 			// @codeCoverageIgnoreStart
 			if ( ! class_exists( '\WP_Filesystem_Base' ) ) {
-				/** @noinspection PhpIncludeInspection */
 				require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
 			}
 			if ( ! class_exists( '\WP_Filesystem_Direct' ) ) {
-				/** @noinspection PhpIncludeInspection */
 				require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
 			}
 
