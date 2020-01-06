@@ -1,8 +1,7 @@
 # Gutenberg Package Versions
 
-[![CI Status](https://github.com/technote-space/gutenberg-package-versions/workflows/CI/badge.svg)](https://github.com/technote-space/gutenberg-package-versions/actions)
 [![Build Status](https://travis-ci.com/technote-space/gutenberg-package-versions.svg?branch=master)](https://travis-ci.com/technote-space/gutenberg-package-versions)
-[![codecov](https://codecov.io/gh/technote-space/gutenberg-package-versions/branch/master/graph/badge.svg)](https://codecov.io/gh/technote-space/gutenberg-package-versions)
+[![Coverage Status](https://coveralls.io/repos/github/technote-space/gutenberg-package-versions/badge.svg?branch=master)](https://coveralls.io/github/technote-space/gutenberg-package-versions?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/gutenberg-package-versions/badge)](https://www.codefactor.io/repository/github/technote-space/gutenberg-package-versions)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2%2B-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![PHP: >=5.6](https://img.shields.io/badge/PHP-%3E%3D5.6-orange.svg)](http://php.net/)
@@ -12,32 +11,10 @@ This repository fetches the versions of Gutenberg automatically every day.
 The version data is provided by `API` and `composer`.  
 You can also use these data by [Wrapper](https://github.com/technote-space/gutenberg-packages).
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [Last updated](#last-updated)
-- [Data](#data)
-  - [Versions of all tags](#versions-of-all-tags)
-    - [Detail](#detail)
-    - [Example](#example)
-  - [Versions of each bag](#versions-of-each-bag)
-    - [Contents](#contents)
-    - [Example](#example-1)
-- [Usage](#usage)
-  - [API](#api)
-    - [Endpoints](#endpoints)
-  - [composer](#composer)
-    - [Helper](#helper)
-    - [Addition](#addition)
-- [Author](#author)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
-|[v7.1.0](https://api.wp-framework.dev/api/v1/gutenberg/tags/7.1.0.json)|[v5.3.2](https://api.wp-framework.dev/api/v1/wp-core/tags/5.3.2.json)|[19 December 2019 16:53:37 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/141793555)|
+|[v7.2.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/7.2.0-rc.1.json)|[v5.3.2](https://api.wp-framework.dev/api/v1/wp-core/tags/5.3.2.json)|[ 6 January 2020 17:02:32 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/143272213)|
 
 https://api.wp-framework.dev/api/v1/summary.json
 
