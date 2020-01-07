@@ -1,7 +1,8 @@
 # Gutenberg Package Versions
 
+[![CI Status](https://github.com/technote-space/gutenberg-package-versions/workflows/CI/badge.svg)](https://github.com/technote-space/gutenberg-package-versions/actions)
 [![Build Status](https://travis-ci.com/technote-space/gutenberg-package-versions.svg?branch=master)](https://travis-ci.com/technote-space/gutenberg-package-versions)
-[![Coverage Status](https://coveralls.io/repos/github/technote-space/gutenberg-package-versions/badge.svg?branch=master)](https://coveralls.io/github/technote-space/gutenberg-package-versions?branch=master)
+[![codecov](https://codecov.io/gh/technote-space/gutenberg-package-versions/branch/master/graph/badge.svg)](https://codecov.io/gh/technote-space/gutenberg-package-versions)
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/gutenberg-package-versions/badge)](https://www.codefactor.io/repository/github/technote-space/gutenberg-package-versions)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2%2B-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![PHP: >=5.6](https://img.shields.io/badge/PHP-%3E%3D5.6-orange.svg)](http://php.net/)
@@ -10,6 +11,9 @@
 This repository fetches the versions of Gutenberg automatically every day.  
 The version data is provided by `API` and `composer`.  
 You can also use these data by [Wrapper](https://github.com/technote-space/gutenberg-packages).
+
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
