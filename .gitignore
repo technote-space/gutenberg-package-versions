@@ -17,4 +17,3 @@ data.zip
 /phpunit.xml
 /tests/bootstrap.php
 /.plugin
-composer.lock
