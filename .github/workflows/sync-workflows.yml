@@ -24,6 +24,7 @@ jobs:
 
             sed -i "s/WP_VERSION: \[.\+$/WP_VERSION: ['latest', '5.0', 'trunk']/" .github/workflows/ci.yml
             rm -f .github/workflows/release.yml
+            rm -f .github/workflows/update-dependencies.yml
             sed -i '1,3d' .github/workflows/toc.yml
             sed -i '1i on: push' .github/workflows/toc.yml
             sed -i '/TARGET_BRANCH_PREFIX/d' .github/workflows/toc.yml
