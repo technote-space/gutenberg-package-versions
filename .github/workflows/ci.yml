@@ -407,7 +407,7 @@ jobs:
       - name: Prepare setting
         run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
       - name: Build
-        run: source travis-ci/bin/deploy/env.sh && bash travis-ci/bin/deploy/create.sh
+        run: source bin/deploy/env.sh && bash bin/deploy/create-zip.sh
       - name: Upload
         uses: technote-space/action-gh-release@v2
         with:
