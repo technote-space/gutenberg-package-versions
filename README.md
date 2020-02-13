@@ -12,6 +12,8 @@ This repository fetches the versions of Gutenberg automatically every day.
 The version data is provided by `API` and `composer`.  
 You can also use these data by [Wrapper](https://github.com/technote-space/gutenberg-packages).
 
+## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <details>
