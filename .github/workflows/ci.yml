@@ -318,8 +318,13 @@ jobs:
           persist-credentials: false
       - name: Set running flag
         run: |
-          if [[ ! -f composer.json ]] || [[ ! -d bin/gh-pages && ! -f bin/deploy/gh-pages.sh ]]; then
+          if [[ ! -f composer.json ]] || [[ ! -d bin/gh-pages ]]; then
             echo "::set-env name=RUNNING::"
+          fi
+      - name: Set running flag
+        run: |
+          if [[ -f composer.json ]] && [[ -f bin/deploy/gh-pages.sh ]]; then
+            echo "::set-env name=RUNNING::2"
           fi
 
       - uses: technote-space/load-config-action@v1
@@ -342,16 +347,18 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
           bash travis-ci/bin/deploy/gh-pages.sh
-        env:
-          TRAVIS_BUILD_DIR: ${{ github.workspace }}
-        if: env.RUNNING
+        if: env.RUNNING == 1
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: gh-pages
-        if: env.RUNNING
+        if: env.RUNNING == 1
+      - name: Deploy
+        run: |
+          bash bin/deploy/gh-pages.sh
+        if: env.RUNNING == 2
 
   releases:
     name: Upload build files
