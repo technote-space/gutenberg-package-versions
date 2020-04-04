@@ -23,10 +23,6 @@ cache:
     - "${TRAVIS_BUILD_DIR}/.plugin"
 
 stages:
-  - name: check
-    if: branch = master and tag IS blank and type IN (pull_request, api)
-  - name: test
-    if: branch = master and tag IS blank and type IN (pull_request, api)
   - name: update
     if: branch = master and tag IS blank and type IN (api, cron)
   - name: deploy
@@ -47,44 +43,6 @@ before_script:
 jobs:
   fast_finish: true
   include:
-    - stage: check
-      language: php
-      php: '7.2'
-      script: bash travis-ci/bin/php/phpcs.sh
-    - stage: check
-      language: php
-      php: '7.2'
-      script: bash travis-ci/bin/php/phpmd.sh
-
-
-    - stage: test
-      language: php
-      php: '7.3'
-      env:
-        - WP_VERSION=latest
-        - ACTIVATE_POPULAR_PLUGINS=1
-        - ACTIVATE_GUTENBERG=1
-        - COVERAGE_REPORT=1
-      script: bash travis-ci/bin/php/wp-test.sh
-    - stage: test
-      language: php
-      php: '7.3'
-      env:
-        - WP_VERSION=latest
-        - WP_MULTISITE=1
-        - COVERAGE_REPORT=1
-      script: bash travis-ci/bin/php/wp-test.sh
-    - stage: test
-      language: php
-      php: '5.6'
-      env:
-        - WP_VERSION=5.0
-        - WP_MULTISITE=1
-        - ACTIVATE_GUTENBERG=1
-        - COVERAGE_REPORT=1
-      script: bash travis-ci/bin/php/wp-test.sh
-
-
     - stage: update
       language: node_js
       node_js: '11'
