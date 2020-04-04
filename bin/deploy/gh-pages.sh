@@ -39,8 +39,8 @@ fi
 
 echo ""
 echo ">> Commit"
-git -C ${GH_PAGES_DIR} --quiet remote remove origin
-git -C ${GH_PAGES_DIR} --quiet remote add origin https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git >/dev/null 2>&1
+git -C ${GH_PAGES_DIR} remote remove origin
+git -C ${GH_PAGES_DIR} remote add origin https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git >/dev/null 2>&1
 git -C ${GH_PAGES_DIR} add --all
 git -C ${GH_PAGES_DIR} status --short
 git -C ${GH_PAGES_DIR} commit -m "${COMMIT_MESSAGE}"
