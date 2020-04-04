@@ -342,14 +342,14 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
           bash travis-ci/bin/deploy/gh-pages.sh
-        if: env.RUNNING == 1
+        if: env.RUNNING
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: gh-pages
-        if: env.RUNNING == 1
+        if: env.RUNNING
 
   releases:
     name: Upload build files
