@@ -23,6 +23,7 @@ jobs:
 
             sed -i "s/WP_VERSION: \[.\+$/WP_VERSION: ['latest', '5.0']/" .github/workflows/ci.yml
             sed -i "s/run: source .\+$/run: source bin\/deploy\/env.sh \&\& bash bin\/deploy\/create-zip.sh/" .github/workflows/ci.yml
+            sed -i "s/release.zip/data.zip/g" .github/workflows/ci.yml
             rm -f .github/workflows/update-dependencies.yml
             sed -i '1,3d' .github/workflows/toc.yml
             sed -i '1i on: push' .github/workflows/toc.yml

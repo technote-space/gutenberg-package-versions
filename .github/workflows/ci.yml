@@ -381,7 +381,7 @@ jobs:
       - name: Upload
         uses: technote-space/action-gh-release@v2
         with:
-          files: release.zip
+          files: data.zip
           draft: true
 
   publishRelease:
