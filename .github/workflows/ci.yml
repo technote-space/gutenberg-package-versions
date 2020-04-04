@@ -318,13 +318,14 @@ jobs:
           persist-credentials: false
       - name: Set running flag
         run: |
-          if [[ ! -f composer.json ]] || [[ ! -d bin/gh-pages ]]; then
+          if [[ ! -f composer.json ]] || [[ ! -d bin/gh-pages && ! -f bin/deploy/gh-pages.sh ]]; then
             echo "::set-env name=RUNNING::"
           fi
 
       - uses: technote-space/load-config-action@v1
         with:
           CONFIG_FILENAME: gh-pages.json
+        if: env.RUNNING
       - name: Get Yarn Cache Directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
