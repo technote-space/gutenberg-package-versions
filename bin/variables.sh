@@ -31,9 +31,9 @@ GH_PAGES_URL=https://${GH_PAGES_CNAME}/${GH_PAGES_API_ROOT}/${GH_PAGES_API_VERSI
 
 TAG_MESSAGE="Auto tag by Travis CI"
 if [[ -n "${TRAVIS_BUILD_WEB_URL}" ]]; then
-	COMMIT_MESSAGE="feat: Update version data (Travis build: ${TRAVIS_BUILD_WEB_URL})"
+	COMMIT_MESSAGE="feat: update version data (TravisCI build: ${TRAVIS_BUILD_WEB_URL})"
 else
-	COMMIT_MESSAGE="feat: Update version data"
+	COMMIT_MESSAGE="feat: update version data"
 fi
 
 if [[ $# -ge 1 ]]; then
