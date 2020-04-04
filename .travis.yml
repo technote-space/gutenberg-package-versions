@@ -25,6 +25,8 @@ cache:
 stages:
   - name: update
     if: branch = master and tag IS blank and type IN (api, cron)
+  - name: deploy
+    if: tag IS present
 
 before_script:
   - git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
