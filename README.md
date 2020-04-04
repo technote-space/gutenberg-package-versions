@@ -12,13 +12,27 @@ This repository fetches the versions of Gutenberg automatically every day.
 The version data is provided by `API` and `composer`.  
 You can also use these data by [Wrapper](https://github.com/technote-space/gutenberg-packages).
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<details>
+<summary>Details</summary>
+
+- [Last updated](#last-updated)
+- [Data](#data)
+  - [Versions of all tags](#versions-of-all-tags)
+  - [Versions of each bag](#versions-of-each-bag)
+- [Usage](#usage)
+  - [API](#api)
+  - [composer](#composer)
+- [Author](#author)
+
+</details>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
-|[v7.8.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/7.8.0-rc.1.json)|[v5.3.2](https://api.wp-framework.dev/api/v1/wp-core/tags/5.3.2.json)|[24 March 2020 17:48:04 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/154842073)|
+|[v7.8.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/7.8.1.json)|[v5.4.0](https://api.wp-framework.dev/api/v1/wp-core/tags/5.4.0.json)|[ 4 April 2020 19:01:26 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/158411559)|
 
 https://api.wp-framework.dev/api/v1/summary.json
 
