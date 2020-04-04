@@ -26,18 +26,34 @@ stages:
   - name: update
     if: branch = master and tag IS blank and type IN (api, cron)
 
+before_script:
+  - git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
+  - git config --global user.email "technote.space@gmail.com"
+  - git config --global user.name "Technote"
+  - git remote remove origin
+  - git remote add origin https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+
+
 jobs:
   fast_finish: true
   include:
     - stage: update
       language: node_js
       node_js: '11'
-      script:
-        - git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
-        - git config --global user.email "technote.space@gmail.com"
-        - git config --global user.name "Technote"
-        - git remote remove origin
-        - git remote add origin https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-        - bash bin/update.sh
+      script: bash bin/update.sh
+      env:
+        - secure: "iU5s5iPxsRTY4eHBjH/1x/nRZiMeMXu7MVexA/mFGAwI7n1JjJPW7v2AmUEkwsAyD55PVly0AVU3v16b//Z5pA8u096VE6+7va1luAclAMojs9NP/WNYiLJbRVWNvswkSCxRE0imNgkir8V+REjpk7YtmbFpp95Ft4RM/YizanK1R2kTCta4g8T5A6YJM/6sEu8GQxH50bF5LVDPznfWTn8zuwP44g8qpFGR0N+srprxkWDkKh9qXk04B/7uBj3y4wRLO7/E50PyDTAQJVqOeBDqY/PkrAVSFQUF9TANpeyApQDY2lvbwDj7HN75MWNoo0lsibGVosdDn5B6rqIS4Scv1vd6Q/cM5ymGAPTwUFFfH4KFAAHIQarU7rqjUsEE9Gh+2ZvbFWc1NY8wyEx4YDdxJjyGvhIZu83hqrXW9vD+kZBjPCAS4O0Q/ck58FOWD1ZLMS2/gDbpt3n4UIG/U0yGkRqGYmpp4GCBcuftAx1HJo1Nz1X0sV8V5CnURLNN4ccXWoG2GFwlrElpWhfeZEqrLfoGi7v5EgBlzl8PKg46KOYhHujxJxistTO5c6jwA+XlZydiV61GY7gLUhFWZphlXXJyYZUnKnz7n9GEEzf/oodtsQZkFrd8gZvrHQEwL9IAuu3tuKGD6ReNDvvANzQKbn3LlxfJ/Dqi22zX6m4="
+
+    - stage: deploy
+      language: node_js
+      node_js: '11'
+      dist: trusty
+      script: skip
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script: bash bin/deploy/gh-pages.sh
+        on:
+          tags: true
       env:
         - secure: "iU5s5iPxsRTY4eHBjH/1x/nRZiMeMXu7MVexA/mFGAwI7n1JjJPW7v2AmUEkwsAyD55PVly0AVU3v16b//Z5pA8u096VE6+7va1luAclAMojs9NP/WNYiLJbRVWNvswkSCxRE0imNgkir8V+REjpk7YtmbFpp95Ft4RM/YizanK1R2kTCta4g8T5A6YJM/6sEu8GQxH50bF5LVDPznfWTn8zuwP44g8qpFGR0N+srprxkWDkKh9qXk04B/7uBj3y4wRLO7/E50PyDTAQJVqOeBDqY/PkrAVSFQUF9TANpeyApQDY2lvbwDj7HN75MWNoo0lsibGVosdDn5B6rqIS4Scv1vd6Q/cM5ymGAPTwUFFfH4KFAAHIQarU7rqjUsEE9Gh+2ZvbFWc1NY8wyEx4YDdxJjyGvhIZu83hqrXW9vD+kZBjPCAS4O0Q/ck58FOWD1ZLMS2/gDbpt3n4UIG/U0yGkRqGYmpp4GCBcuftAx1HJo1Nz1X0sV8V5CnURLNN4ccXWoG2GFwlrElpWhfeZEqrLfoGi7v5EgBlzl8PKg46KOYhHujxJxistTO5c6jwA+XlZydiV61GY7gLUhFWZphlXXJyYZUnKnz7n9GEEzf/oodtsQZkFrd8gZvrHQEwL9IAuu3tuKGD6ReNDvvANzQKbn3LlxfJ/Dqi22zX6m4="

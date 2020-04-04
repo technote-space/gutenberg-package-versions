@@ -5,7 +5,6 @@ name: CI
 env:
   CI: 1
   TRAVIS_BUILD_DIR: ${{ github.workspace }}
-  TRAVIS_REPO_SLUG: ${{ github.repository }}
 
 jobs:
   eslint:
@@ -315,15 +314,12 @@ jobs:
       - name: Set running flag
         run: echo "::set-env name=RUNNING::1"
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: Set running flag
         run: |
           if [[ ! -f composer.json ]] || [[ ! -d bin/gh-pages ]]; then
             echo "::set-env name=RUNNING::"
-          fi
-      - name: Set running flag
-        run: |
-          if [[ -f composer.json ]] && [[ -f bin/deploy/gh-pages.sh ]]; then
-            echo "::set-env name=RUNNING::2"
           fi
 
       - uses: technote-space/load-config-action@v1
@@ -348,15 +344,12 @@ jobs:
           bash travis-ci/bin/deploy/gh-pages.sh
         if: env.RUNNING == 1
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gh-pages
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: gh-pages
         if: env.RUNNING == 1
-      - name: Deploy
-        run: |
-          bash bin/deploy/gh-pages.sh
-        if: env.RUNNING == 2
 
   releases:
     name: Upload build files
