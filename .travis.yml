@@ -27,6 +27,7 @@ stages:
     if: branch = master and tag IS blank and type IN (api, cron)
 
 before_install:
+  - git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
   - openssl aes-256-cbc -K $encrypted_fea3c3191547_key -iv $encrypted_fea3c3191547_iv -in ./id_rsa.enc -out ~/.ssh/id_rsa -d 2>/dev/null
   - chmod 600 ~/.ssh/id_rsa
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
