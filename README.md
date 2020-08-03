@@ -19,7 +19,7 @@ You can also use these data by [Wrapper](https://github.com/technote-space/guten
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
-|[v8.6.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/8.6.1.json)|[v5.4.2](https://api.wp-framework.dev/api/v1/wp-core/tags/5.4.2.json)|[28 July 2020 16:37:03 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/177474470)|
+|[v8.7.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/8.7.0-rc.1.json)|[v5.4.2](https://api.wp-framework.dev/api/v1/wp-core/tags/5.4.2.json)|[ 3 August 2020 16:52:42 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/178288678)|
 
 https://api.wp-framework.dev/api/v1/summary.json
 
