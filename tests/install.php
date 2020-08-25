@@ -3,7 +3,7 @@ $plugins_dir = dirname( dirname( __FILE__ ) ) . '/.plugin';
 if ( file_exists( "{$plugins_dir}/gutenberg" ) ) {
 	$tmp = getenv( 'WP_TESTS_DIR' );
 	if ( empty( $tmp ) ) {
-		$tmp = '/tmp';
+		$tmp = rtrim( sys_get_temp_dir(), '/\\' );
 	}
 	$core = getenv( 'WP_CORE_DIR' );
 	if ( empty( $core ) ) {
