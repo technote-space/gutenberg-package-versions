@@ -13,27 +13,13 @@ You can also use these data by [Wrapper](https://github.com/technote-space/guten
 
 ## Table of Contents
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<details>
-<summary>Details</summary>
-
-- [Last updated](#last-updated)
-- [Data](#data)
-  - [Versions of all tags](#versions-of-all-tags)
-  - [Versions of each bag](#versions-of-each-bag)
-- [Usage](#usage)
-  - [API](#api)
-  - [composer](#composer)
-- [Author](#author)
-
-</details>
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
-|[v9.2.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/9.2.0-rc.1.json)|[v5.5.1](https://api.wp-framework.dev/api/v1/wp-core/tags/5.5.1.json)|[20 October 2020 17:17:58 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/191241205)|
+|[v9.2.0](https://api.wp-framework.dev/api/v1/gutenberg/tags/9.2.0.json)|[v5.5.1](https://api.wp-framework.dev/api/v1/wp-core/tags/5.5.1.json)|[21 October 2020 17:18:37 UTC](https://travis-ci.com/technote-space/gutenberg-package-versions/builds/191496734)|
 
 https://api.wp-framework.dev/api/v1/summary.json
 
