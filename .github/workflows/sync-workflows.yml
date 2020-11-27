@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Set variables
+        run: |
+          echo "MINUTE=$(echo "${GITHUB_REPOSITORY}" | md5sum | tr -d -c 0-9 | xargs -I{} echo {}123456789 | cut -c 2-9 | xargs -I{} bash -c 'echo $((1{} % 60))')" >> $GITHUB_ENV
+          echo "HOUR=$(echo "${GITHUB_REPOSITORY}" | md5sum | tr -d -c 0-9 | xargs -I{} echo {}123456789 | cut -c 2-9 | xargs -I{} bash -c 'echo $((1{} % 24))')" >> $GITHUB_ENV
+          echo "DAY=$(echo "${GITHUB_REPOSITORY}" | md5sum | tr -d -c 0-9 | xargs -I{} echo {}123456789 | cut -c 2-9 | xargs -I{} bash -c 'echo $((1{} % 7))')" >> $GITHUB_ENV
+
       - name: Sync workflows
         uses: technote-space/create-pr-action@v2
         with:
@@ -21,12 +27,13 @@ jobs:
             mkdir -p .github/workflows/.tmp
             git clone --depth=1 https://github.com/technote-space/github-actions-workflows.git .github/workflows/.tmp/workflows
 
+            cp -f .github/workflows/ci.yml .github/workflows/.tmp/ > /dev/null 2>&1 || :
+            cp -f .github/workflows/update-dependencies.yml .github/workflows/.tmp/ > /dev/null 2>&1 || :
             bash .github/workflows/.tmp/workflows/wp-plugin/copy.sh
 
-            sed -i "s/WP_VERSION: \[.\+$/WP_VERSION: ['latest', '5.0']/" .github/workflows/ci.yml
-            sed -i "s/run: source .\+$/run: source bin\/deploy\/env.sh \&\& bash bin\/deploy\/create-zip.sh/" .github/workflows/ci.yml
-            sed -i "s/release.zip/data.zip/g" .github/workflows/ci.yml
-            rm -f .github/workflows/update-dependencies.yml
+            cp -f .github/workflows/.tmp/ci.yml .github/workflows/ci.yml > /dev/null 2>&1 || :
+            cp -f .github/workflows/.tmp/update-dependencies.yml .github/workflows/update-dependencies.yml > /dev/null 2>&1 || :
+            sed -i "s/cron:.\+$/cron: ${MINUTE} ${HOUR} * * ${DAY}/" .github/workflows/update-dependencies.yml
             sed -i '1,3d' .github/workflows/toc.yml
             sed -i '1i on: push' .github/workflows/toc.yml
             sed -i '/TARGET_BRANCH_PREFIX/d' .github/workflows/toc.yml

@@ -19,7 +19,7 @@ wordpress_tag_url=${4}
 last_updated_at=${5}
 last_updated_at_url=${6}
 
-README=${TRAVIS_BUILD_DIR}/README.md
+README=${GITHUB_WORKSPACE}/README.md
 rm -f ${README}
 cp ${current}/README.template.md ${README}
 sed -i -e "s/\${gutenberg_tag}/${gutenberg_tag//\//\\/}/" ${README}

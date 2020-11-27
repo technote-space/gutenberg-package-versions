@@ -6,50 +6,6 @@ env:
   TRAVIS_BUILD_DIR: ${{ github.workspace }}
 
 jobs:
-  eslint:
-    name: ESLint
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    env:
-      LINT: 1
-    steps:
-      - uses: technote-space/auto-cancel-redundant-workflow@v1
-        with:
-          EXCLUDE_MERGED: 'true'
-      - name: Set running flag
-        run: echo "RUNNING=1" >> $GITHUB_ENV
-      - uses: actions/checkout@v2
-      - uses: technote-space/get-git-comment-action@v1
-      - uses: technote-space/get-diff-action@v4
-        with:
-          PATTERNS: assets/js/**/*.+(js|ts)
-          FILES: |
-            yarn.lock
-            .eslintrc
-        if: "! contains(env.COMMIT_MESSAGE, '[skip ci]') && ! contains(env.COMMIT_MESSAGE, '[ci skip]')"
-      - name: Set running flag
-        run: echo "RUNNING=" >> $GITHUB_ENV
-        if: "! env.GIT_DIFF"
-
-      - name: Get Yarn Cache Directory
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-        if: env.RUNNING
-      - name: Cache node dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-        if: env.RUNNING
-      - name: Prepare setting
-        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
-        if: env.RUNNING
-      - name: Check code style
-        run: bash travis-ci/bin/js/js-lint.sh
-        if: env.RUNNING
-
   phpcs:
     name: PHP Code Sniffer
     runs-on: ubuntu-latest
@@ -127,74 +83,6 @@ jobs:
         run: bash travis-ci/bin/php/phpmd.sh
         if: env.RUNNING
 
-  cover:
-    name: Coverage
-    needs: eslint
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    strategy:
-      matrix:
-        node: ['12', '14']
-    steps:
-      - name: Set running flag
-        run: echo "RUNNING=1" >> $GITHUB_ENV
-      - uses: actions/checkout@v2
-      - uses: technote-space/get-git-comment-action@v1
-      - uses: technote-space/get-diff-action@v4
-        with:
-          PATTERNS: assets/js/**/*.+(js|ts|snap)
-          FILES: |
-            yarn.lock
-            jest.config.js
-        if: "! contains(env.COMMIT_MESSAGE, '[skip ci]') && ! contains(env.COMMIT_MESSAGE, '[ci skip]')"
-      - name: Set running flag
-        run: echo "RUNNING=" >> $GITHUB_ENV
-        if: "! env.GIT_DIFF"
-      - name: Set running flag
-        if: "matrix.node == '12' && ! startsWith(github.ref, 'refs/tags/') && github.event.base_ref == format('refs/heads/{0}', github.event.repository.default_branch)"
-        run: echo "RUNNING=1" >> $GITHUB_ENV
-      - name: Set running flag
-        if: matrix.node == '12' && startsWith(github.ref, 'refs/tags/v')
-        run: echo "RUNNING=1" >> $GITHUB_ENV
-      - name: Set running flag
-        run: |
-          if [[ ! -f assets/js/package.json ]] || ! < assets/js/package.json jq -r '.scripts | keys[]' | grep -qe '^cover$'; then
-            echo "RUNNING=" >> $GITHUB_ENV
-          fi
-
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-        if: env.RUNNING
-      - name: Get Yarn Cache Directory
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-        if: env.RUNNING
-      - name: Cache node dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-        if: env.RUNNING
-      - name: Prepare setting
-        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
-        if: env.RUNNING
-      - name: Run tests
-        run: bash travis-ci/bin/js/js-test.sh
-        if: env.RUNNING
-      - name: Codecov
-        run: |
-          if [ -n "$CODECOV_TOKEN" ]; then
-            curl -s https://codecov.io/bash | bash -s -- -t $CODECOV_TOKEN -f $COVERAGE_FILE
-          fi
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          COVERAGE_FILE: ./assets/js/coverage/lcov.info
-        if: env.RUNNING && matrix.node == '12'
-
   phpunit:
     name: PHPUnit
     needs: [phpcs, phpmd]
@@ -207,7 +95,7 @@ jobs:
           - 3306
     strategy:
       matrix:
-        php: ['7.0', '7.3', '5.6']
+        php: ['7.3', '5.6']
         WP_VERSION: ['latest', '5.0']
         WP_MULTISITE: ['0', '1']
         include:
@@ -295,50 +183,25 @@ jobs:
 
   pages:
     name: Publish GitHub Pages
-    needs: [cover, phpunit]
+    needs: [phpunit]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
-      - name: Set running flag
-        run: echo "RUNNING=1" >> $GITHUB_ENV
+      - uses: actions/checkout@v2
       - uses: actions/checkout@v2
         with:
-          persist-credentials: false
-      - name: Set running flag
-        run: |
-          if [[ ! -f composer.json ]] || [[ ! -d bin/gh-pages ]]; then
-            echo "RUNNING=" >> $GITHUB_ENV
-          fi
-
-      - uses: technote-space/load-config-action@v1
-        with:
-          CONFIG_FILENAME: gh-pages.json
-        if: env.RUNNING
-      - name: Get Yarn Cache Directory
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-        if: env.RUNNING
-      - name: Cache node dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-        if: env.RUNNING
+          ref: gh-pages
+          path: gh-pages
+          token: ${{ secrets.ACCESS_TOKEN }}
       - name: Build
-        run: |
-          git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
-          bash travis-ci/bin/deploy/gh-pages.sh
-        if: env.RUNNING
+        run: bash bin/deploy/gh-pages.sh
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: gh-pages
-        if: env.RUNNING
 
   releases:
     name: Upload build files
@@ -364,10 +227,10 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - name: Prepare setting
-        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
       - name: Build
-        run: source bin/deploy/env.sh && bash bin/deploy/create-zip.sh
+        run: bash bin/deploy/create-zip.sh
+        env:
+          RELEASE_FILE: data.zip
       - name: Upload
         uses: technote-space/action-gh-release@v2
         with:

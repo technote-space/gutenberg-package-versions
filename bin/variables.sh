@@ -2,14 +2,18 @@
 
 set -e
 
-if [[ -z "${TRAVIS_BUILD_DIR}" ]]; then
-	echo "<TRAVIS_BUILD_DIR> is required"
+
+if [[ -z "${GITHUB_WORKSPACE}" ]] && [[ -z "${TRAVIS_BUILD_DIR}" ]]; then
+	echo "<GITHUB_WORKSPACE> is required"
 	exit 1
 fi
 
-WORK_DIR=${TRAVIS_BUILD_DIR}/.work
-DATA_DIR=${TRAVIS_BUILD_DIR}/data
-SCRIPT_DIR=${TRAVIS_BUILD_DIR}/travis-ci/bin
+if [[ -z "${GITHUB_WORKSPACE}" ]]; then
+  GITHUB_WORKSPACE=${TRAVIS_BUILD_DIR}
+fi
+
+WORK_DIR=${GITHUB_WORKSPACE}/.work
+DATA_DIR=${GITHUB_WORKSPACE}/data
 
 GUTENBERG_VARIABLE_PREFIX=GUTENBERG
 GUTENBERG_SLUG=gutenberg
@@ -23,18 +27,13 @@ WP_NAME=WordPress
 WP_REPO=WordPress/wordpress-develop
 WP_IS_WP="TRUE"
 
-GH_PAGES_DIR=${TRAVIS_BUILD_DIR}/gh-pages
+GH_PAGES_DIR=${GITHUB_WORKSPACE}/gh-pages
 GH_PAGES_CNAME=api.wp-framework.dev
 GH_PAGES_API_ROOT=api
 GH_PAGES_API_VERSION=v1
 GH_PAGES_URL=https://${GH_PAGES_CNAME}/${GH_PAGES_API_ROOT}/${GH_PAGES_API_VERSION}
 
-TAG_MESSAGE="Auto tag by Travis CI"
-if [[ -n "${TRAVIS_BUILD_WEB_URL}" ]]; then
-	COMMIT_MESSAGE="feat: update version data (TravisCI build: ${TRAVIS_BUILD_WEB_URL})"
-else
-	COMMIT_MESSAGE="feat: update version data"
-fi
+COMMIT_MESSAGE="feat: update version data"
 
 if [[ $# -ge 1 ]]; then
 	PREFIX=${1}

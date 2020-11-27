@@ -1,0 +1,25 @@
+on:
+  schedule:
+    - cron: 59 23 * * 2
+  repository_dispatch:
+    types: [update-packages]
+  workflow_dispatch:
+
+name: Update dependencies
+
+env:
+  GITHUB_ACTION: 1
+
+jobs:
+  update:
+    name: Update dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - run: bash bin/update.sh
+      - uses: EndBug/add-and-commit@v5
+        with:
+          add: 'data'
+          message: 'feat: update version data'
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

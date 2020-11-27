@@ -22,7 +22,6 @@ if [[ -n ${TARGET_IS_WP} ]]; then
 fi
 
 if [[ ! -f ${TARGET_WORK_TAG_DIR}/${NORMALIZED_TAG}/package.json ]]; then
-	echo ""
 	echo ">>>> ${NORMALIZED_TAG}"
 	mkdir -p ${TARGET_WORK_TAG_DIR}/${NORMALIZED_TAG}
 
@@ -40,7 +39,7 @@ if [[ -n ${TARGET_IS_WP} ]]; then
 		fi
 	done
 else
-	< ${TARGET_WORK_TAG_DIR}/${NORMALIZED_TAG}/package.json jq -r '.dependencies | values[] | select(startswith("file:packages/"))' | xargs -n1 --no-run-if-empty basename | while read -r package;
+	< ${TARGET_WORK_TAG_DIR}/${NORMALIZED_TAG}/package.json jq -r '.dependencies | values[] | select(startswith("file:packages/"))' | xargs -n1 basename | while read -r package;
 	do
 		if [[ ! -f ${TARGET_WORK_TAG_DIR}/${NORMALIZED_TAG}/packages/${package}.json ]]; then
 			echo ">>>> ${NORMALIZED_TAG}/${package}"
