@@ -8,7 +8,6 @@ fi
 
 current=$(cd $(dirname $0);
 pwd)
-source ${current}/../../variables.sh
 
 echo ""
 echo ">> Update README.md"
