@@ -35,7 +35,7 @@ GH_PAGES_URL=https://${GH_PAGES_CNAME}/${GH_PAGES_API_ROOT}/${GH_PAGES_API_VERSI
 
 COMMIT_MESSAGE="feat: update version data"
 
-if [[ $# -ge 1 ]]; then
+if [[ $# -ge 1 ]] && [[ -n "${1}" ]]; then
 	PREFIX=${1}
 
 	NAME=${PREFIX}_SLUG
