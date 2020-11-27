@@ -9,6 +9,7 @@ name: Update dependencies
 
 env:
   GITHUB_ACTION: 1
+  TRAVIS_BUILD_DIR: ${{ github.workspace }}
 
 jobs:
   update:
