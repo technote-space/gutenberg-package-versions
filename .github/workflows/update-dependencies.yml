@@ -23,6 +23,13 @@ jobs:
       - name: Get new tag
         run: echo "NEXT_TAG=$(bash travis-ci/bin/update/commit/get-new-tag.sh)" >> $GITHUB_ENV
       - run: bash bin/update.sh
+      - name: Git add changes
+        run: |
+          git add data
+          diff=$(git status --short -uno | grep -e '^M' || :)
+          if [ -n "${diff}" ]; then echo "::set-env name=commit_flag::1"; fi
+      - run: bash bin/update/summary.sh
+        if: env.commit_flag == 1
       - uses: EndBug/add-and-commit@v5
         with:
           add: 'data README.md'
