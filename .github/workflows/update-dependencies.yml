@@ -27,7 +27,7 @@ jobs:
         run: |
           git add data
           diff=$(git status --short -uno | grep -e '^M' || :)
-          if [ -n "${diff}" ]; then echo "::set-env name=commit_flag::1"; fi
+          if [ -n "${diff}" ]; then echo "commit_flag=1" >> $GITHUB_ENV; fi
       - run: bash bin/update/summary.sh
         if: env.commit_flag == 1
       - uses: EndBug/add-and-commit@v5
