@@ -17,9 +17,14 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
+      - name: Prepare setting
+        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
+      - name: Get new tag
+        run: echo "NEXT_TAG=$(bash travis-ci/bin/update/commit/get-new-tag.sh)" >> $GITHUB_ENV
       - run: bash bin/update.sh
       - uses: EndBug/add-and-commit@v5
         with:
           add: 'data'
           message: 'feat: update version data'
+          tag: ${{ env.NEXT_TAG }}
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
