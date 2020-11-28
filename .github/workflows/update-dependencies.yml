@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
       - name: Prepare setting
         run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
       - name: Get new tag
@@ -30,10 +32,17 @@ jobs:
           if [ -n "${diff}" ]; then echo "commit_flag=1" >> $GITHUB_ENV; fi
       - run: bash bin/update/summary.sh
         if: env.commit_flag == 1
-      - uses: EndBug/add-and-commit@v5
-        with:
-          add: 'data README.md'
-          message: 'feat: update version data'
-          tag: ${{ env.NEXT_TAG }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - name: Git add changes
+        run: git add README.md
+        if: env.commit_flag == 1
+      - name: Git commit
+        if: env.commit_flag == 1
+        run: |
+          git commit -qm "feat: update version data"
+          git show --stat-count=10 HEAD
+      - name: Git push
+        if: env.commit_flag == 1
+        run: |
+          git tag ${{ env.NEXT_TAG }}
+          git push origin HEAD
+          git push origin ${{ env.NEXT_TAG }}
