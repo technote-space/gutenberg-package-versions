@@ -33,7 +33,7 @@ You can also use these data by [Wrapper](https://github.com/technote-space/guten
 ## Last updated
 |Gutenberg tag|WordPress tag|Last updated at|
 |:---:|:---:|:---:|
-|[v9.9.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/9.9.0-rc.1.json)|[v5.6.0](https://api.wp-framework.dev/api/v1/wp-core/tags/5.6.0.json)|[ 1 February 2021 20:49:06 UTC](https://github.com/technote-space/gutenberg-package-versions/actions/runs/528862491)|
+|[v10.0.0-rc.1](https://api.wp-framework.dev/api/v1/gutenberg/tags/10.0.0-rc.1.json)|[v5.6.1](https://api.wp-framework.dev/api/v1/wp-core/tags/5.6.1.json)|[10 February 2021 20:41:58 UTC](https://github.com/technote-space/gutenberg-package-versions/actions/runs/555856090)|
 
 https://api.wp-framework.dev/api/v1/summary.json
 
