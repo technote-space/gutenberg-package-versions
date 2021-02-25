@@ -38,10 +38,10 @@ jobs:
             ${{ runner.os }}-composer-
         if: env.RUNNING
       - name: Prepare setting
-        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
+        run: git clone --depth=1 https://github.com/wp-content-framework/ci-helper.git ci-helper && bash ci-helper/bin/prepare.sh
         if: env.RUNNING
       - name: Check code style
-        run: bash travis-ci/bin/php/phpcs.sh
+        run: bash ci-helper/bin/php/phpcs.sh
         if: env.RUNNING
 
   phpmd:
@@ -77,10 +77,10 @@ jobs:
             ${{ runner.os }}-composer-
         if: env.RUNNING
       - name: Prepare setting
-        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
+        run: git clone --depth=1 https://github.com/wp-content-framework/ci-helper.git ci-helper && bash ci-helper/bin/prepare.sh
         if: env.RUNNING
       - name: Check code style
-        run: bash travis-ci/bin/php/phpmd.sh
+        run: bash ci-helper/bin/php/phpmd.sh
         if: env.RUNNING
 
   phpunit:
@@ -155,7 +155,7 @@ jobs:
             plugin-cache-
         if: env.RUNNING && matrix.ACTIVATE_POPULAR_PLUGINS == 1
       - name: Prepare setting
-        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci && bash travis-ci/bin/prepare.sh
+        run: git clone --depth=1 https://github.com/wp-content-framework/ci-helper.git ci-helper && bash ci-helper/bin/prepare.sh
         env:
           WP_VERSION: ${{ matrix.WP_VERSION }}
           WP_MULTISITE: ${{ matrix.WP_MULTISITE }}
@@ -164,7 +164,7 @@ jobs:
       - run: sudo systemctl start mysql
         if: env.RUNNING
       - name: Run tests
-        run: bash travis-ci/bin/php/wp-test.sh
+        run: bash ci-helper/bin/php/wp-test.sh
         env:
           DB_PASS: root
           WP_VERSION: ${{ matrix.WP_VERSION }}

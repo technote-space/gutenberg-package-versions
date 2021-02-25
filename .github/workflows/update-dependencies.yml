@@ -25,9 +25,9 @@ jobs:
           git config user.name Technote
           git config user.email technote.space@gmail.com
       - name: Prepare setting
-        run: git clone --depth=1 https://github.com/wp-content-framework/travis-ci.git travis-ci
+        run: git clone --depth=1 https://github.com/wp-content-framework/ci-helper.git ci-helper
       - name: Get new tag
-        run: echo "NEXT_TAG=$(bash travis-ci/bin/update/commit/get-new-tag.sh)" >> $GITHUB_ENV
+        run: echo "NEXT_TAG=$(bash ci-helper/bin/update/commit/get-new-tag.sh)" >> $GITHUB_ENV
       - run: bash bin/update.sh
       - name: Git add changes
         run: |
